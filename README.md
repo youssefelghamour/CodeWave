@@ -18,7 +18,7 @@ The **Holberton School Dashboard** is a school portal designed to help students 
 - **React**: Frontend JavaScript library for building the user interface.
 - **Redux**: State management library for handling user data and application state.
 - **React Router**: For dynamic routing within the application.
-- **CSS**: For styling and layout.
+- **Aphrodite**: Library for managing inline styles and dynamic styling in React.
 - **Redux Thunk**: Middleware for handling async actions in Redux to fetch data from the API.
 - **Normalizr**: Data normalization library for the data fetched from the API.
 - **Immutable.js**: Data structures for managing state immutability.
