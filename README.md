@@ -29,11 +29,34 @@ The **Holberton School Dashboard** is a school portal designed to help students 
 
 To set up the **School Dashboard** locally:
 
-1. Clone the repository: `git clone https://github.com/youssefelghamour/HolbertonSchoolDashboard.git`
-2. Navigate to the project directory: `cd HolbertonSchoolDashboard`
-3. Install dependencies: `npm install`
-4. Start the app: `npm start`
+1. Clone the repository: 
+
+```bash
+git clone https://github.com/youssefelghamour/HolbertonSchoolDashboard.git`
+```
+2. Navigate to the project directory:
+
+```bash
+cd HolbertonSchoolDashboard`
+```
+
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Start the app:
+
+```bash
+npm start
+```
+
 5. Access the app at `http://localhost:3000`
+
+## Demo Video
+
+https://github.com/user-attachments/assets/16b1b974-bde0-4606-bac1-c0587c447953
 
 ## Next Steps
 
