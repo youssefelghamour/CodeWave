@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "type": "Administration",
+        "title": "New Virtual Classroom Guidelines",
+        "content": "<p>Virtual classrooms are an integral part of modern education, and our updated guidelines aim to make the experience more effective and engaging.</p><p><strong>Key Updates:</strong></p><ul><li>Instructors must provide detailed agendas before sessions.</li><li>Students are required to keep their cameras on unless otherwise instructed.</li><li>New tools for collaboration, including breakout rooms and interactive whiteboards.</li></ul><p>Please review the complete guidelines on the school's portal and ensure adherence starting from <strong>20 November 2024</strong>.</p>",
+        "date": "15 November 2024"
+    },
+    {
+        "id": 2,
+        "type": "Platform Update",
+        "title": "Interactive Quizzes",
+        "content": "<p>We are excited to announce the launch of interactive quizzes on our learning platform, designed to enhance engagement and learning outcomes.</p><p><strong>Features:</strong></p><ul><li>Real-time feedback for each question.</li><li>Gamification elements to make learning fun.</li><li>Leaderboards for friendly competition.</li></ul><p>Students can start using the feature immediately. Please check the platform's tutorial section for a guide on creating and taking quizzes.</p>",
+        "date": "11 November 2024"
+    },
+    {
+        "id": 3,
+        "type": "Learning",
+        "title": "Update on Peer Learning Days",
+        "content": "<p>Peer Learning Days are being revamped to encourage more collaborative and interactive sessions.</p><p><strong>New Highlights:</strong></p><ul><li>Dedicated mentors to guide group discussions.</li><li>Pre-session materials to prepare for the day.</li><li>Post-session assessments to measure outcomes.</li></ul><p>The next Peer Learning Day is scheduled for <strong>20 November 2024</strong>. Don't forget to review the preparation materials shared on the portal.</p>",
+        "date": "10 November 2024"
+    },
+    {
+        "id": 4,
+        "type": "Administration",
+        "title": "Online Exam Protocol Update",
+        "content": "<p>The school has introduced updated protocols for online exams to ensure integrity and smooth conduct of assessments.</p><p><strong>Important Changes:</strong></p><ul><li>Mandatory use of proctoring software during exams.</li><li>Restricted access to additional devices or browsers.</li><li>Improved guidelines for technical troubleshooting during exams.</li></ul><p>These changes will be effective from the <strong>December 2024 examination session</strong>. Please review the detailed protocol document on the portal.</p>",
+        "date": "9 November 2024"
+    },
+    {
+        "id": 5,
+        "type": "Events",
+        "title": "Graduation Ceremony",
+        "content": "<p>We are thrilled to announce the Graduation Ceremony for the Class of 2024, celebrating their incredible achievements.</p><p><strong>Event Details:</strong></p><ul><li><strong>Date:</strong> 20 December 2024</li><li><strong>Venue:</strong> Main Auditorium</li><li><strong>Guests:</strong> Families are welcome.</li></ul><p>Please RSVP by <strong>10 December 2024</strong> and check the portal for event guidelines and dress code.</p>",
+        "date": "8 November 2024"
+    },
+    {
+        "id": 6,
+        "type": "Events",
+        "title": "News on the Book Fair",
+        "content": "<p>The annual Book Fair is back with exciting additions and opportunities for all book enthusiasts.</p><p><strong>Event Highlights:</strong></p><ul><li>Discounts on bestselling titles.</li><li>Author meet-and-greet sessions.</li><li>Workshops on creative writing and storytelling.</li></ul><p>The fair will be held from <strong>15 to 20 November 2024</strong> at the school library. Don't miss this chance to explore and indulge in the world of books!</p>",
+        "date": "8 November 2024"
+    }
+]

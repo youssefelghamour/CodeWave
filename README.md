@@ -1,4 +1,4 @@
-![Dashboard]()
+![Dashboard1](./src/assets/Holberton%20School%20Dashboard%201.png)
 
 # Holberton School Dashboard
 
@@ -52,7 +52,7 @@ npm install
 npm start
 ```
 
-5. Access the app at `http://localhost:3000`
+5. Access the app at `http://localhost:8080`
 
 ## Demo Video
 
@@ -67,3 +67,5 @@ The next step for this project would focus on adding a REST API backend using **
 - **Youssef El Ghamour** - [GitHub](https://github.com/youssefelghamour) | [LinkedIn](https://www.linkedin.com/in/youssefelghamour/)
 
 This project is derived from another one of my projects. To explore the full commit history or check out the original repository, visit [this link](https://github.com/youssefelghamour/alx-react).
+
+![Dashboard1](./src/assets/Holberton%20School%20Dashboard%202.png)

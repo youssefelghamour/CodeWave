@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "image": "news1.jpg",
+    "type": "Sports",
+    "title": "School Olympics 2024",
+    "subtitle": "An exciting day of competition and celebration.",
+    "content": "<p>The Holberton School Olympics 2024 was a resounding success, showcasing thrilling competitions across various sports and activities in this year’s School Olympics.</p><p><strong>Updates:</strong></p><ul><li>A professional documentary capturing the highlights of the day will be available soon. Stay tuned for its release date!</li><li>Prizes and awards have been distributed to the winners, including medals and trophies for outstanding performances in individual and team events.</li><li>Special recognition was given for exemplary sportsmanship and teamwork during the competitions.</li></ul><p>Thank you to everyone who participated and supported the event. We look forward to seeing you all again next year!</p>",
+    "date": "14 November 2024"
+  },
+  {
+    "id": 2,
+    "image": "news2.jpg",
+    "type": "Events",
+    "title": "Science Fair 2024",
+    "subtitle": "Innovative student projects on display.",
+    "content": "<p>The Science Fair 2024 is approaching, and preparations are now underway. Students who wish to participate should submit their project proposals by <strong>25 November 2024</strong>. Proposals must include a brief description, objectives, and required materials.</p><p><strong>Important Dates:</strong></p><ul><li><strong>Proposal Submission Deadline:</strong> 25 November 2024</li><li><strong>Approval Notifications:</strong> 30 November 2024</li><li><strong>Setup and Rehearsal:</strong> 10 December 2024</li><li><strong>Event Day:</strong> 12 December 2024</li></ul><p>Students are encouraged to work individually or in teams (maximum 3 members). Those interested in volunteering to assist with event organization or logistics should contact their class teachers by <strong>20 November 2024</strong>.</p><p>Guidelines and resources for project preparation will be shared with participants after proposal approval. Let's make this year’s Science Fair an incredible showcase of talent and innovation!</p>",
+    "date": "12 December 2024"
+  },
+  {
+    "id": 3,
+    "image": "news3.jpg",
+    "type": "Administration",
+    "title": "New Principal Appointment",
+    "subtitle": "A fresh vision for the future of the school.",
+    "content": "<p>We are pleased to announce the appointment of Mr. John Doe as the new principal of our school. With over 15 years of experience in education, he brings a fresh perspective and commitment to academic excellence.</p><p><strong>His Vision:</strong></p><ul><li>Foster a collaborative learning environment.</li><li>Integrate cutting-edge technology into the classroom.</li><li>Support the mental and emotional well-being of all students.</li></ul><p>We look forward to the positive changes Mr. Doe will bring to the school community in the upcoming years.</p>",
+    "date": "16 November 2024"
+  },
+  {
+    "id": 4,
+    "image": "news4.jpg",
+    "type": "Administration",
+    "title": "School Safety Policy Update",
+    "subtitle": "Enhanced measures to ensure a safe school environment.",
+    "content": "<p>The school is taking further steps to enhance the safety of its students and staff with an updated safety policy. The revised guidelines will ensure that our campus remains a secure and supportive place for everyone.</p><p><strong>Key Updates:</strong></p><ul><li>New security staff on campus during school hours.</li><li>Updated emergency response procedures, including lockdown drills.</li><li>Introduction of mental health programs for students and staff.</li></ul><p>These updates reflect the school’s ongoing commitment to maintaining a safe and nurturing environment for all students.</p>",
+    "date": "18 November 2024"
+  }
+]

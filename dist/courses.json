@@ -1,0 +1,137 @@
+[
+  {
+    "id": "1",
+    "name": "ES6",
+    "credit": 60,
+    "start_date": "2024-09-01",
+    "end_date": "2024-12-01",
+    "duration": "3 months",
+    "status": "Completed"
+  },
+  {
+    "id": "2",
+    "name": "Webpack",
+    "credit": 20,
+    "start_date": "2024-10-01",
+    "end_date": "2024-11-01",
+    "duration": "1 month",
+    "status": "In Progress"
+  },
+  {
+    "id": "3",
+    "name": "React",
+    "credit": 40,
+    "start_date": "2024-08-15",
+    "end_date": "2024-12-15",
+    "duration": "4 months",
+    "status": "Completed"
+  },
+  {
+    "id": "4",
+    "name": "Node.js",
+    "credit": 50,
+    "start_date": "2024-09-15",
+    "end_date": "2024-12-01",
+    "duration": "2.5 months",
+    "status": "Completed"
+  },
+  {
+    "id": "5",
+    "name": "CSS Grid & Flexbox",
+    "credit": 30,
+    "start_date": "2024-07-01",
+    "end_date": "2024-09-01",
+    "duration": "2 months",
+    "status": "Completed"
+  },
+  {
+    "id": "6",
+    "name": "TypeScript",
+    "credit": 40,
+    "start_date": "2024-10-01",
+    "end_date": "2024-12-15",
+    "duration": "2.5 months",
+    "status": "In Progress"
+  },
+  {
+    "id": "7",
+    "name": "Vue.js",
+    "credit": 35,
+    "start_date": "2024-08-01",
+    "end_date": "2024-10-01",
+    "duration": "2 months",
+    "status": "Completed"
+  },
+  {
+    "id": "8",
+    "name": "Git & Version Control",
+    "credit": 25,
+    "start_date": "2024-06-01",
+    "end_date": "2024-07-01",
+    "duration": "1 month",
+    "status": "Completed"
+  },
+  {
+    "id": "9",
+    "name": "Python for Web Development",
+    "credit": 60,
+    "start_date": "2024-09-01",
+    "end_date": "2024-12-01",
+    "duration": "3 months",
+    "status": "Completed"
+  },
+  {
+    "id": "10",
+    "name": "Databases & SQL",
+    "credit": 50,
+    "start_date": "2024-08-01",
+    "end_date": "2024-10-01",
+    "duration": "2 months",
+    "status": "Completed"
+  },
+  {
+    "id": "11",
+    "name": "Django Framework",
+    "credit": 45,
+    "start_date": "2024-07-01",
+    "end_date": "2024-09-01",
+    "duration": "2 months",
+    "status": "Completed"
+  },
+  {
+    "id": "12",
+    "name": "Introduction to Machine Learning",
+    "credit": 70,
+    "start_date": "2024-09-01",
+    "end_date": "2024-12-01",
+    "duration": "3 months",
+    "status": "In Progress"
+  },
+  {
+    "id": "13",
+    "name": "React Native",
+    "credit": 55,
+    "start_date": "2024-08-01",
+    "end_date": "2024-11-01",
+    "duration": "3 months",
+    "status": "In Progress"
+  },
+  {
+    "id": "14",
+    "name": "Cloud Computing (AWS)",
+    "credit": 65,
+    "start_date": "2024-09-01",
+    "end_date": "2024-12-01",
+    "duration": "3 months",
+    "status": "Completed"
+  },
+  {
+    "id": "15",
+    "name": "DevOps Basics",
+    "credit": 40,
+    "start_date": "2024-07-15",
+    "end_date": "2024-10-01",
+    "duration": "2.5 months",
+    "status": "Completed"
+  }
+]
