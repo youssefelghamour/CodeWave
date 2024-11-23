@@ -14,16 +14,15 @@ The **Holberton School Dashboard** is a school portal designed to help students 
 
 ## Technologies Used
 
+- **JavaScript (ES6)**: Language used for building the dashboard.
 - **React**: Frontend JavaScript library for building the user interface.
 - **Redux**: State management library for handling user data and application state.
 - **React Router**: For dynamic routing within the application.
-- **JavaScript (ES6+)**: Language used for building the dashboard.
-- **HTML/CSS**: For styling and layout.
-- **Redux Thunk**: Middleware for handling async actions in Redux.
-- **Normalizr**: Data normalization library for APIs.
+- **CSS**: For styling and layout.
+- **Redux Thunk**: Middleware for handling async actions in Redux to fetch data from the API.
+- **Normalizr**: Data normalization library for the data fetched from the API.
 - **Immutable.js**: Data structures for managing state immutability.
 - **Webpack**: Module bundler for JavaScript applications.
-- **API Integration**: Fetches real-time data for courses, scores, and school updates...
 
 ## Setup
 
