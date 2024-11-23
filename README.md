@@ -32,12 +32,12 @@ To set up the **School Dashboard** locally:
 1. Clone the repository: 
 
 ```bash
-git clone https://github.com/youssefelghamour/HolbertonSchoolDashboard.git`
+git clone https://github.com/youssefelghamour/HolbertonSchoolDashboard.git
 ```
 2. Navigate to the project directory:
 
 ```bash
-cd HolbertonSchoolDashboard`
+cd HolbertonSchoolDashboard
 ```
 
 3. Install dependencies:
@@ -65,3 +65,5 @@ The next step for this project would focus on adding a REST API backend using **
 ## Authors
 
 - **Youssef El Ghamour** - [GitHub](https://github.com/youssefelghamour) | [LinkedIn](https://www.linkedin.com/in/youssefelghamour/)
+
+This project is derived from another one of my projects. To explore the full commit history or check out the original repository, visit [this link](https://github.com/youssefelghamour/alx-react).
