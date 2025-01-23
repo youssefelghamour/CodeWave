@@ -15,11 +15,11 @@ async function insertToDB() {
     const db = client.db(dbName);
 
     // Read data from the JSON files (just require them directly)
-    const coursesData = require('../dist/courses.json');
-    const usersData = require('../dist/users.json');
-    const notificationsData = require('../dist/notifications.json');
-    const updatesData = require('../dist/updates.json');
-    const newsData = require('../dist/news.json');
+    const coursesData = require('../client/dist/courses.json');
+    const usersData = require('../client/dist/users.json');
+    const notificationsData = require('../client/dist/notifications.json');
+    const updatesData = require('../client/dist/updates.json');
+    const newsData = require('../client/dist/news.json');
 
     // Create the collections in the database
     const coursesCollection = db.collection('courses');
