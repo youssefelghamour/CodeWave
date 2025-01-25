@@ -1,3 +1,8 @@
+/**
+ * File contains the DBClient class that manages the connection to the MongoDB database.
+ * And exports an instance of DBClient for use in other modules.
+ */
+
 const { MongoClient } = require('mongodb');
 
 
@@ -9,7 +14,7 @@ class DBClient {
         this.isAlive = false;  // Track connection status
     }
 
-    // Connects to MongoDB if not already connected
+    /* Connects to MongoDB if not already connected */
     async connect() {
         if (!this.isAlive) {
             try {
@@ -23,10 +28,11 @@ class DBClient {
                 this.updatesCollection = this.db.collection('updates');
                 this.newsCollection = this.db.collection('news');
 
-                this.isAlive = true;  // Mark connection as established
-                console.log('Connected to MongoDB');
+                // Mark connection as established
+                this.isAlive = true;
+                console.log('db.js: Connected to MongoDB');
             } catch (err) {
-                console.error(`Failed to connect to MongoDB: ${err.message}`);
+                console.error(`db.js: Failed to connect to MongoDB: ${err.message}`);
             }
         }
     }

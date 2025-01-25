@@ -1,3 +1,7 @@
+/**
+ * This file initializes and populates the MongoDB database with necessary collections and sample data
+ */
+
 const dbClient = require('./db');
 // Get data from the JSON files (just require them directly)
 const coursesData = require('../../client/dist/courses.json');
@@ -7,7 +11,7 @@ const updatesData = require('../../client/dist/updates.json');
 const newsData = require('../../client/dist/news.json');
 
 
-// Function to insert data to the database
+/* Function to insert data into the database */
 async function insertToDB() {
   try {
     // Wait for the connection to be established
@@ -20,13 +24,13 @@ async function insertToDB() {
     await dbClient.updatesCollection.insertMany(updatesData);
     await dbClient.newsCollection.insertMany(newsData);
 
-    console.log('Data inserted successfully!');
+    console.log('dbSetup: Data inserted successfully!');
   } catch (err) {
-    console.error('Error:', err);
+    console.error('dbSetup: Error:', err);
   } finally {
     // Close the database connection
     await dbClient.client.close();
-    console.log('Database connection closed');
+    console.log('dbSetup: Database connection closed after inserting Data');
   }
 }
 
