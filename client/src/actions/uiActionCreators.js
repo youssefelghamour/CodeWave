@@ -55,7 +55,7 @@ export const loginFailure = (error) => ({
 
 export const loginRequest = (email, password) => {
     return (dispatch) => {
-        return fetch('http://localhost:8080/users.json')
+        return fetch('http://localhost:5000/users')
             .then((res) => res.json())
             .then((users) => {
                 const user = users.find(u => u.email === email && u.password === password);

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Dashboard Web API Help Page</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        header {
+            padding: 0 100px;
+            height: 60px;
+            font-family: Arial, sans-serif;
+            align-content: center;
+            background-color: #363636;
+            width: 100%;
+            font-size: 20px;
+        }
+        header a {
+            color: #dedede;
+            margin-right: 18px;
+        }
+        main {
+            margin: 50px 100px;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #9e9e9e;
+        }
+        p {
+            font-size: 20px;
+        }
+        a {
+            text-decoration: none;
+            color: #005eac;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .users {
+            background-color: #f2f1f1;
+            padding: 1px 20px;
+            border-radius: 10px;
+            border: 1px solid lightgrey;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: center;">
+            <p style="margin: 0 22px 0 0; font-size: 25px; color: white;">Holberton School Dashboard</p>
+            <nav>
+                <a href="/"> Home </a>
+                <a href="/"> API </a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <h1>School Dashboard Web API Help Page</h1>
+        <h2>Available Routes:</h2>
+        <div class="users">
+            <p>Users Routes:</p>
+            <ul>
+                <li><b>CREATE /users/id</b> - Creates a new user</li>
+                <li><b><a href="/users">GET /users</a></b> - Retrieve all users</li>
+                <li><b><a href="/users/1">GET /users/id</a></b> - Retrieve a user by id</li>
+                <li><b>PUT /users/id</b> - Updates a user</li>
+                <li><b>DELETE /users/id</b> - Deletes a user</li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
