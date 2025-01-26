@@ -41,11 +41,12 @@
         li {
             margin: 8px 0;
         }
-        .users {
-            background-color: #f2f1f1;
+        .routes {
+            background-color: #f2f1f1cf;
             padding: 1px 20px;
-            border-radius: 10px;
+            border-radius: 6px;
             border: 1px solid lightgrey;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -62,7 +63,8 @@
     <main>
         <h1>School Dashboard Web API Help Page</h1>
         <h2>Available Routes:</h2>
-        <div class="users">
+
+        <div class="routes">
             <p>Users Routes:</p>
             <ul>
                 <li><b>CREATE /users/id</b> - Creates a new user</li>
@@ -70,6 +72,17 @@
                 <li><b><a href="/users/1">GET /users/id</a></b> - Retrieve a user by id</li>
                 <li><b>PUT /users/id</b> - Updates a user</li>
                 <li><b>DELETE /users/id</b> - Deletes a user</li>
+            </ul>
+        </div>
+
+        <div class="routes">
+            <p>Courses Routes:</p>
+            <ul>
+                <li><b>CREATE /courses/id</b> - Creates a new course</li>
+                <li><b><a href="/users">GET /courses</a></b> - Retrieve all courses</li>
+                <li><b><a href="/courses/1">GET /courses/id</a></b> - Retrieve a course by id</li>
+                <li><b>PUT /courses/id</b> - Updates a course</li>
+                <li><b>DELETE /courses/id</b> - Deletes a course</li>
             </ul>
         </div>
     </main>

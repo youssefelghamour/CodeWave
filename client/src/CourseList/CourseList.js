@@ -15,8 +15,9 @@ class CourseList extends Component {
     }
 
     componentDidMount() {
-        // fetches courses from courses.json (not needed anymore, we're fetching from user.courses)
-        // this.props.fetchCourses();
+        // Old comment: fetches courses from courses.json (not needed anymore, we're fetching from user.courses)
+        // Running this to populate state.courses, while the listCourses is fetched from user.courses
+        this.props.fetchCourses();
     }
 
     onChangeRow(id, checked) {

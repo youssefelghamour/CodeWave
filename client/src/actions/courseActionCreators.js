@@ -25,7 +25,8 @@ export const setCourses = (data) => ({
 
 export const fetchCourses = () => {
     return (dispatch) => {
-        return fetch('http://localhost:8080/courses.json')
+        // return fetch('http://localhost:8080/courses.json')
+        return fetch('http://localhost:5000/courses')
             .then((response) => response.json())
             .then((data)  => dispatch(setCourses(data)))
             .catch((error) => {});
