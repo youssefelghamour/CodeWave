@@ -67,4 +67,4 @@ The next step for this project would focus on adding a REST API backend using **
 
 This project is derived from another one of my projects. To explore the full commit history or check out the original repository, visit [this link](https://github.com/youssefelghamour/alx-react).
 
-![Dashboard1](./client/src/assets/Holberton%20School%20Dashboard%202.png)
+![Dashboard1](./client/src/assets/hero2.png)
