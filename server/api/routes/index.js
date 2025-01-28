@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const UsersController = require('../controllers/UsersController');
 const CoursesController = require('../controllers/CoursesController');
+const NotificationsController = require('../controllers/NotificationsController');
 
 
 const router = express.Router();
@@ -37,6 +38,20 @@ router.get('/courses/:id', CoursesController.getCourseByID);
 router.put('/courses/:id', CoursesController.updateCourse);
 // DELETE a course by id
 router.delete('/courses/:id', CoursesController.deleteCourse);
+
+
+/* Notifications Routes */
+
+// CREATE a new notification
+router.post('/notifications', NotificationsController.createNotification);
+// GET all notifications
+router.get('/notifications', NotificationsController.getNotifications);
+// GET a notification by id
+router.get('/notifications/:id', NotificationsController.getNotificationByID);
+// UPDATE a notification by id
+router.put('/notifications/:id', NotificationsController.updateNotification);
+// DELETE a notification by id
+router.delete('/notifications/:id', NotificationsController.deleteNotification);
 
 
 module.exports = router;

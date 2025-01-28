@@ -32,8 +32,8 @@ export const setNotifications = (data) => ({
 export const fetchNotifications = () => {
     return (dispatch) => {
         dispatch(setLoadingState(true));
-
-        return fetch('http://localhost:8080/notifications.json')
+        // return fetch('http://localhost:8080/notifications.json')
+        return fetch('http://localhost:5000/notifications')
             .then((response) => response.json())
             .then((data) => dispatch(setNotifications(data))) // Dispatch the fetched notifications
             .catch((error) => {})

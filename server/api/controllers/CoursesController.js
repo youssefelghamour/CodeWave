@@ -35,6 +35,15 @@ class CoursesController {
     async getCourses(req, res) {
         // Fetch all courses (toArray because find() returns a cursor)
         const courses = await dbClient.coursesCollection.find().toArray();
+        /* In case we're using mongodb's _id, we need to convert it to string and the field to id for Nomalizr
+        const modifiedCourses = courses.map((course) => {
+            return {
+                ...course,
+                id: course._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                _id: undefined,
+            };
+        });
+        */
         return res.status(200).json(courses);
     }
 
