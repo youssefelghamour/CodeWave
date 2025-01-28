@@ -1,4 +1,4 @@
-![Dashboard1](./client/src/assets/Holberton%20School%20Dashboard%201.png)
+![Dashboard1](./client/src/assets/hero1.png)
 
 # Holberton School Dashboard
 
