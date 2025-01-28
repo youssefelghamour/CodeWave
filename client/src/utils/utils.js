@@ -3,7 +3,7 @@ export function getFullYear() {
 }
 
 export const getFooterCopy = (isIndex) => {
-    return isIndex ? "Holberton School" : "Holberton School main dashboard";
+    return isIndex ? "CodeWave School" : "CodeWave School main dashboard";
 }
 
 export function getLatestNotification() {

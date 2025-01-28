@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { getFullYear, getFooterCopy } from '../utils/utils';
 import { connect } from 'react-redux';
-import logo from '../assets/header-logo.png';
+import logo from '../assets/footer-logo.png';
 import { css, StyleSheet } from 'aphrodite';
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaFacebookSquare } from "react-icons/fa";
@@ -47,8 +47,8 @@ export function Footer(props) {
       
       <div className={css(styles.footerContainer)}>
         <div className={css(styles.logoContainer)}>
-          <img className={css(styles.img)} src={logo} alt="Holberton logo" />
-          <p>Holberton School</p>
+          <img className={css(styles.img)} src={logo} alt="logo" />
+          <p>CodeWave School</p>
         </div>
 
         <p>Copyright &copy; { getFullYear() }</p>

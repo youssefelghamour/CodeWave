@@ -1,8 +1,8 @@
 ![Dashboard1](./client/src/assets/hero1.png)
 
-# Holberton School Dashboard
+# CodeWave School Website
 
-The **Holberton School Dashboard** is a school portal designed to help students track their academic progress and stay informed. It allows students to log in, view their courses, monitor their progress and scores, and keep up with the latest news and updates from the school.
+The `**CodeWave School Website** `is a school portal designed to help students track their academic progress and stay informed. It allows students to log in, view their courses, monitor their progress and scores, and keep up with the latest news and updates from the school.
 
 ## Features
 
@@ -26,7 +26,7 @@ The **Holberton School Dashboard** is a school portal designed to help students 
 
 ## Setup
 
-To set up the **School Dashboard** locally:
+To set up the **School Website** locally:
 
 1. Clone the repository: 
 
@@ -65,6 +65,6 @@ The next step for this project would focus on adding a REST API backend using **
 
 - **Youssef El Ghamour** - [GitHub](https://github.com/youssefelghamour) | [LinkedIn](https://www.linkedin.com/in/youssefelghamour/)
 
-This project is derived from another one of my projects. To explore the full commit history or check out the original repository, visit [this link](https://github.com/youssefelghamour/alx-react).
+The frontend of this project is derived from another one of my projects. To explore the full commit history or check out the original repository, visit [this link](https://github.com/youssefelghamour/alx-react).
 
 ![Dashboard1](./client/src/assets/hero2.png)

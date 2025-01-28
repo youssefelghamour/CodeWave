@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../../dist/favicon.ico';
+import logo from '../../dist/logo.png';
 import { StyleSheet, css } from 'aphrodite';
 import { connect } from 'react-redux';
 import { logout } from '../actions/uiActionCreators';
@@ -62,7 +62,7 @@ export class Header extends Component {
     return (
       <div className={css(headerClass)} style={headerStyle}>
       
-        <img className={css(styles.img)} src={logo} alt="Holberton logo" />
+        <img className={css(styles.img)} src={logo} alt="logo" />
 
         
         <div className={css(styles.navContainer)}>
@@ -162,15 +162,17 @@ const styles = StyleSheet.create({
 
   img: {
     position: 'relative',
-    width: '3rem',
+    width: '2.8rem',
     left: '12%',
     padding: '12px',
     borderRadius: '20px',
     transition: 'transform filter 0.3s ease',
+    cursor: 'pointer',
 
     ':hover': {
       transform: 'scale(103%)',
-      filter: 'hue-rotate(30deg)',
+      // filter: 'hue-rotate(30deg)',
+      filter: 'brightness(1.5)',
     },
   },
 
