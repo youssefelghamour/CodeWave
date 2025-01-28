@@ -31,12 +31,12 @@ To set up the **School Website** locally:
 1. Clone the repository: 
 
 ```bash
-git clone https://github.com/youssefelghamour/HolbertonSchoolDashboard.git
+git clone https://github.com/youssefelghamour/CodeWave.git
 ```
 2. Navigate to the project directory:
 
 ```bash
-cd HolbertonSchoolDashboard
+cd CodeWave
 ```
 
 3. Install dependencies:
