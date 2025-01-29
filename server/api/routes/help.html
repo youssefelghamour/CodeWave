@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Dashboard Web API Help Page</title>
+    <title>CodeWave School Web API Help Page</title>
     <style>
         body {
             margin: 0;
@@ -16,20 +16,22 @@
             background-color: #363636;
             width: 100%;
             font-size: 20px;
+            box-sizing: border-box;
         }
         header a {
             color: #dedede;
             margin-right: 18px;
         }
         main {
-            margin: 50px 100px;
+            display: flex;
+            margin: 50px 160px 50px 90px;
             font-family: Arial, sans-serif;
         }
         h1 {
             color: #9e9e9e;
         }
         p {
-            font-size: 20px;
+            font-size: 16px;
         }
         a {
             text-decoration: none;
@@ -47,54 +49,158 @@
             border-radius: 6px;
             border: 1px solid lightgrey;
             margin-bottom: 15px;
+            margin-left: 25px;
+        }
+        pre {
+            background: #efefef;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        aside {
+            width: 300px;
+            padding: 0 25px;
+            background-color: #efefef;
+            position: relative;
+            height: 100%;
+            margin-right: 40px;
+            border-radius: 6px;
+        }
+        aside ul {
+            padding-left: 25px;
         }
     </style>
 </head>
 <body>
     <header>
         <div style="display: flex; align-items: center;">
-            <p style="margin: 0 22px 0 0; font-size: 25px; color: white;">Holberton School Dashboard</p>
+            <p style="margin: 0 22px 0 0; font-size: 25px; color: white;">CodeWave School Dashboard</p>
             <nav>
-                <a href="/"> Home </a>
+                <a href="http://localhost:8080/"> Home</a>
                 <a href="/"> API </a>
             </nav>
         </div>
     </header>
     <main>
-        <h1>School Dashboard Web API Help Page</h1>
-        <h2>Available Routes:</h2>
-
-        <div class="routes">
-            <p>Users Routes:</p>
+        <aside>
+            <h3>Navigation</h3>
             <ul>
-                <li><b>CREATE /users/id</b> - Creates a new user</li>
-                <li><b><a href="/users">GET /users</a></b> - Retrieve all users</li>
-                <li><b><a href="/users/1">GET /users/id</a></b> - Retrieve a user by id</li>
-                <li><b>PUT /users/id</b> - Updates a user</li>
-                <li><b>DELETE /users/id</b> - Deletes a user</li>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#key-features">Key Features</a></li>
+                <li><a href="#base-url">Base URL</a></li>
+                <li><a href="#status-codes">HTTP Status Codes</a></li>
+                <li><a href="#routes">Available Routes</a></li>
             </ul>
-        </div>
-
-        <div class="routes">
-            <p>Courses Routes:</p>
+            <h3>Links</h3>
             <ul>
-                <li><b>CREATE /courses/id</b> - Creates a new course</li>
-                <li><b><a href="/courses">GET /courses</a></b> - Retrieve all courses</li>
-                <li><b><a href="/courses/1">GET /courses/id</a></b> - Retrieve a course by id</li>
-                <li><b>PUT /courses/id</b> - Updates a course</li>
-                <li><b>DELETE /courses/id</b> - Deletes a course</li>
+                <li><a href="localhost:8080">Home</a></li>
+                <li><a href="/">API</a></li>
+                <li><a href="/users">Users</a></li>
+                <li><a href="/courses">Courses</a></li>
+                <li><a href="/notifications">Notifications</a></li>
+                <li><a href="/news">News</a></li>
+                <li><a href="/updates">Updates</a></li>
             </ul>
-        </div>
+        </aside>
 
-        <div class="routes">
-            <p>Notifications Routes:</p>
-            <ul>
-                <li><b>CREATE /notifications/id</b> - Creates a new notification</li>
-                <li><b><a href="/notifications">GET /notifications</a></b> - Retrieve all notifications</li>
-                <li><b><a href="/notifications/5debd76480edafc8af244228">GET /notifications/id</a></b> - Retrieve a notification by id</li>
-                <li><b>PUT /notifications/id</b> - Updates a notification</li>
-                <li><b>DELETE /notifications/id</b> - Deletes a notification</li>
-            </ul>
+        <div>
+            <h1>School Dashboard Web API Help Page</h1>
+
+            <section id="overview">
+                <h2>Overview:</h2>
+                <div style="font-size: 17px; margin-left: 25px;">
+                    <p>The CodeWave School API allows interaction with the platform's users, courses, notifications, and news. It provides a structured way to manage resources through CRUD operations.</p>
+
+                    <p>Users can register, retrieve, update, and delete information. Courses can be created, modified, and removed. Notifications ensure real-time updates, and news keeps users informed.</p>
+
+                    <p>Each route follows RESTful principles, ensuring clear and predictable interactions. Authentication and validation mechanisms should be implemented where necessary to maintain data integrity and security.</p>
+                </div>
+            </section>
+
+            <section id="key-features">
+                <h2 id="key-features">Key Features</h2>
+                <ul>
+                    <li><strong>User Management</strong>: Create, update, delete, and retrieve user profiles.</li>
+                    <li><strong>Course Management</strong>: Manage course listings, including details such as instructors, descriptions, and schedules.</li>
+                    <li><strong>Notification System</strong>: Deliver real-time or scheduled notifications to users, track read status, and manage alert types.</li>
+                    <li><strong>News Updates</strong>: Provide a way to post and manage news articles related to school events, announcements, or general updates.</li>
+                </ul>
+            </section>
+
+            <section id="base-url">
+                <h2 id="base-url">Base URL</h2>
+                <pre>http://localhost:5000/</pre>
+            </section>
+            
+            <section>
+                <h2>Request and Response Format</h2>
+                <ul>
+                    <li>All request payloads must be sent in <strong>JSON format</strong>.</li>
+                    <li>Responses are also returned in <strong>JSON format</strong>.</li>
+                </ul>
+            </section>
+
+            <section id="status-codes">
+                <h2 id="status-codes">Common HTTP Status Codes</h2>
+                <ul>
+                    <li><strong>200 OK</strong> – The request was successful.</li>
+                    <li><strong>201 Created</strong> – A new resource was successfully created.</li>
+                    <li><strong>400 Bad Request</strong> – The request was malformed or contained invalid data.</li>
+                    <li><strong>401 Unauthorized</strong> – Authentication credentials were missing or invalid.</li>
+                    <li><strong>403 Forbidden</strong> – The user does not have permission to access the requested resource.</li>
+                    <li><strong>404 Not Found</strong> – The requested resource does not exist.</li>
+                    <li><strong>500 Internal Server Error</strong> – A server-side error occurred while processing the request.</li>
+                </ul>
+            </section>
+
+            <section id="routes">
+                <h2 id="routes">Available Routes:</h2>
+
+                <div class="routes">
+                    <p>Users Routes:</p>
+                    <ul>
+                        <li><b>CREATE /users/id</b> - Creates a new user</li>
+                        <li><b><a href="/users">GET /users</a></b> - Retrieve all users</li>
+                        <li><b><a href="/users/1">GET /users/id</a></b> - Retrieve a user by id</li>
+                        <li><b>PUT /users/id</b> - Updates a user</li>
+                        <li><b>DELETE /users/id</b> - Deletes a user</li>
+                    </ul>
+                </div>
+
+                <div class="routes">
+                    <p>Courses Routes:</p>
+                    <ul>
+                        <li><b>CREATE /courses/id</b> - Creates a new course</li>
+                        <li><b><a href="/courses">GET /courses</a></b> - Retrieve all courses</li>
+                        <li><b><a href="/courses/1">GET /courses/id</a></b> - Retrieve a course by id</li>
+                        <li><b>PUT /courses/id</b> - Updates a course</li>
+                        <li><b>DELETE /courses/id</b> - Deletes a course</li>
+                    </ul>
+                </div>
+
+                <div class="routes">
+                    <p>Notifications Routes:</p>
+                    <ul>
+                        <li><b>CREATE /notifications/id</b> - Creates a new notification</li>
+                        <li><b><a href="/notifications">GET /notifications</a></b> - Retrieve all notifications</li>
+                        <li><b><a href="/notifications/5debd76480edafc8af244228">GET /notifications/id</a></b> - Retrieve a notification by id</li>
+                        <li><b>PUT /notifications/id</b> - Updates a notification</li>
+                        <li><b>DELETE /notifications/id</b> - Deletes a notification</li>
+                    </ul>
+                </div>
+
+                <div class="routes">
+                    <p>News Routes:</p>
+                    <ul>
+                        <li><b>CREATE /news/id</b> - Creates a new news</li>
+                        <li><b><a href="/news">GET /news</a></b> - Retrieve all news</li>
+                        <li><b><a href="/news/1">GET /news/id</a></b> - Retrieve a news by id</li>
+                        <li><b>PUT /news/id</b> - Updates a news</li>
+                        <li><b>DELETE /news/id</b> - Deletes a news</li>
+                    </ul>
+                </div>
+            </section>
         </div>
     </main>
 </body>

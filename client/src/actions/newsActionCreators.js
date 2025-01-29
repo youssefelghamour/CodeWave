@@ -8,7 +8,8 @@ export const setNews = (data) => ({
 
 export const fetchNews = () => {
     return (dispatch) => {
-        return fetch('http://localhost:8080/news.json')
+        // return fetch('http://localhost:8080/news.json')
+        return fetch('http://localhost:5000/news')
             .then((response) => response.json())
             .then((data)  => dispatch(setNews(data)))
             .catch((error) => {});
