@@ -8,7 +8,7 @@ export const setUpdates = (data) => ({
 
 export const fetchUpdates = () => {
     return (dispatch) => {
-        return fetch('http://localhost:8080/updates.json')
+        return fetch('http://localhost:5000/updates')
             .then((response) => response.json())
             .then((data)  => dispatch(setUpdates(data)))
             .catch((error) => {});

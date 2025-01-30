@@ -134,11 +134,22 @@
                 <div class="routes">
                     <p>News Routes:</p>
                     <ul>
-                        <li><b>CREATE /news/{id}</b> - Creates a new news</li>
-                        <li><b><a href="/news">GET /news</a></b> - Retrieve all news</li>
-                        <li><b><a href="/news/1">GET /news/{id}</a></b> - Retrieve a news by id</li>
-                        <li><b>PUT /news/{id}</b> - Updates a news</li>
-                        <li><b>DELETE /news/{id}</b> - Deletes a news</li>
+                        <li><b>CREATE /news/{id}</b> - Creates a new news article</li>
+                        <li><b><a href="/news">GET /news</a></b> - Retrieve all news articles</li>
+                        <li><b><a href="/news/1">GET /news/{id}</a></b> - Retrieve a news article by id</li>
+                        <li><b>PUT /news/{id}</b> - Updates a news article</li>
+                        <li><b>DELETE /news/{id}</b> - Deletes a news article</li>
+                    </ul>
+                </div>
+
+                <div class="routes">
+                    <p>Updates Routes:</p>
+                    <ul>
+                        <li><b>CREATE /updates/{id}</b> - Creates a new updates article</li>
+                        <li><b><a href="/updates">GET /updates</a></b> - Retrieve all updates articles</li>
+                        <li><b><a href="/updates/1">GET /updates/{id}</a></b> - Retrieve an updates article by id</li>
+                        <li><b>PUT /updates/{id}</b> - Updates an updates article</li>
+                        <li><b>DELETE /updates/{id}</b> - Deletes an updates article</li>
                     </ul>
                 </div>
             </section>
@@ -218,6 +229,24 @@
                 
                     <p>DELETE a news article:</p>
                     <pre><code><b>curl</b> <span class="arg">-X DELETE</span> <span class="url">http://localhost:5000/news/5</span></code></pre>
+                </div>
+
+                <h3>Updates:</h3>
+                <div>
+                    <p>GET all updates:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/updates</span></code></pre>
+                
+                    <p>CREATE an new updates article:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X POST</span> <span class="url">http://localhost:5000/updates</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{ "id":55, "type":"Administration", "title":"New Title", "content":"content" }'</code></pre>
+                
+                    <p>GET an updates article by id:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/updates/5</span></code></pre>
+                
+                    <p>UPDATE an updates article:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X PUT</span> <span class="url">http://localhost:5000/updates/5</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{"type": "Sports"}'</code></pre>
+                
+                    <p>DELETE an updates article:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X DELETE</span> <span class="url">http://localhost:5000/updates/5</span></code></pre>
                 </div>
             </section>
             

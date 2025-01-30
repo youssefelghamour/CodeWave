@@ -4,6 +4,7 @@ const UsersController = require('../controllers/UsersController');
 const CoursesController = require('../controllers/CoursesController');
 const NotificationsController = require('../controllers/NotificationsController');
 const NewsController = require('../controllers/NewsController');
+const UpdatesController = require('../controllers/UpdatesController');
 
 
 const router = express.Router();
@@ -57,16 +58,30 @@ router.delete('/notifications/:id', NotificationsController.deleteNotification);
 
 /* news Routes */
 
-// CREATE a new news
+// CREATE a new news article
 router.post('/news', NewsController.createNews);
-// GET all news
+// GET all news articles
 router.get('/news', NewsController.getNews);
-// GET a news by id
+// GET a news article by id
 router.get('/news/:id', NewsController.getNewsByID);
-// UPDATE a news by id
+// UPDATE a news article by id
 router.put('/news/:id', NewsController.updateNews);
-// DELETE a news by id
+// DELETE a news article by id
 router.delete('/news/:id', NewsController.deleteNews);
+
+
+/* updates Routes */
+
+// CREATE a new updates article
+router.post('/updates', UpdatesController.createUpdate);
+// GET all updates articles
+router.get('/updates', UpdatesController.getUpdates);
+// GET a updates article by id
+router.get('/updates/:id', UpdatesController.getUpdateByID);
+// UPDATE a updates article by id
+router.put('/updates/:id', UpdatesController.updateUpdate);
+// DELETE a updates article by id
+router.delete('/updates/:id', UpdatesController.deleteUpdate);
 
 
 module.exports = router;
