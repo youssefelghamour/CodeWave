@@ -29,6 +29,9 @@ The **`CodeWave School Website`** is a school portal designed to help students t
 - **Normalizr**: Data normalization library for the data fetched from the API.
 - **Immutable.js**: Data structures for managing state immutability.
 - **Webpack**: Module bundler for JavaScript applications.
+- **MongoDB**: NoSQL database used to store application data.
+- **Node.js**: JavaScript runtime environment for building the backend.
+- **Express**: Web framework for building the backend API with Node.js.
 
 ## Setup
 
@@ -38,7 +41,7 @@ The **`CodeWave School Website`** is a school portal designed to help students t
 git clone https://github.com/youssefelghamour/CodeWave.git
 ```
 
-2. navigate to the server directory:
+2. Navigate to the server directory:
 
 ```bash
 cd CodeWave/server
@@ -87,7 +90,5 @@ https://github.com/user-attachments/assets/16b1b974-bde0-4606-bac1-c0587c447953
 ## Authors
 
 - **Youssef El Ghamour** - [GitHub](https://github.com/youssefelghamour) | [LinkedIn](https://www.linkedin.com/in/youssefelghamour/)
-
-The frontend of this project is derived from another one of my projects. To explore the full commit history or check out the original repository, visit [this link](https://github.com/youssefelghamour/alx-react).
 
 ![Dashboard1](./client/src/assets/hero2.png)
