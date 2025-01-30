@@ -32,50 +32,39 @@ The **`CodeWave School Website`** is a school portal designed to help students t
 
 ## Setup
 
-1. Clone the repository:
+To set up the project locally, follow these steps:
 
 ```bash
+# Clone the repository
 git clone https://github.com/youssefelghamour/CodeWave.git
-```
 
-2. Navigate to the client directory and install dependencies:
-
-```bash
+# Navigate to the client directory and install dependencies
 cd CodeWave/client
 npm install
-```
 
-3. Start the React app:
-
-```bash
+# Start the React app
 npm start
 ```
 
-4. In a separate terminal, navigate to the server directory:
+Open a new terminal window for the API setup:
 
 ```bash
+# Navigate to the server directory
 cd CodeWave/server
-```
 
-5. Install server dependencies:
-
-```bash
+# Install server dependencies
 npm install
-```
 
-6. Set up the database:
-
-```bash
+# Set up and populate the database
 node utils/dbSetup.js
-```
 
-7. Start the API:
-
-```bash
+# Start the API
 node api/server.js
 ```
 
-8. Visit the app at `http://localhost:8080`.
+Finally, access the app at `http://localhost:8080`.
+
+Additionally, you can visit the API help page at `http://localhost:5000`.
 
 ## Demo Video
 
