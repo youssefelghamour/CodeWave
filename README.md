@@ -1,8 +1,14 @@
 ![Dashboard1](./client/src/assets/hero1.png)
 
+[![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?logo=mongodb&logoColor=white)](#)
+[![Express.js](https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB)](#)
+[![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#)
+[![Redux](https://img.shields.io/badge/Redux-764ABC?logo=redux&logoColor=fff)](#)
+[![NodeJS](https://img.shields.io/badge/Node.js-6DA55F?logo=node.js&logoColor=white)](#)
+
 # CodeWave School Website
 
-The `**CodeWave School Website** `is a school portal designed to help students track their academic progress and stay informed. It allows students to log in, view their courses, monitor their progress and scores, and keep up with the latest news and updates from the school.
+The **`CodeWave School Website`** is a school portal designed to help students track their academic progress and stay informed. It allows students to log in, view their courses, monitor their progress and scores, and keep up with the latest news and updates from the school.
 
 ## Features
 
@@ -26,40 +32,54 @@ The `**CodeWave School Website** `is a school portal designed to help students t
 
 ## Setup
 
-To set up the **School Website** locally:
-
-1. Clone the repository: 
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/youssefelghamour/CodeWave.git
 ```
-2. Navigate to the project directory:
+
+2. Navigate to the client directory and install dependencies:
 
 ```bash
-cd CodeWave
-```
-
-3. Install dependencies:
-
-```bash
+cd CodeWave/client
 npm install
 ```
 
-4. Start the app:
+3. Start the React app:
 
 ```bash
 npm start
 ```
 
-5. Access the app at `http://localhost:8080`
+4. In a separate terminal, navigate to the server directory:
+
+```bash
+cd CodeWave/server
+```
+
+5. Install server dependencies:
+
+```bash
+npm install
+```
+
+6. Set up the database:
+
+```bash
+node utils/dbSetup.js
+```
+
+7. Start the API:
+
+```bash
+node api/server.js
+```
+
+8. Visit the app at `http://localhost:8080`.
 
 ## Demo Video
 
 https://github.com/user-attachments/assets/16b1b974-bde0-4606-bac1-c0587c447953
-
-## Next Steps
-
-The next step for this project would focus on adding a REST API backend using **Express.js**, **MySQL** to manage and store user data securely and **Sequelize ORM** for seamless database interaction and data modeling.
 
 ## Authors
 
