@@ -1,4 +1,5 @@
 const dbClient = require('../../utils/db');
+const { ObjectId } = require('mongodb');
 
 
 /**
@@ -11,18 +12,9 @@ class UsersController {
             // Get the object (key-value pairs) from the request body
             const newData = req.body;
 
-            // Check if the new object contains an id and email keys
-            const fields = ["id", "email"];
-            for (const field of fields) {
-                if (!(field in newData)) {
-                    return res.status(400).json({ error: `Missing: ${field}` });
-                }
-            }
-
-            // Check if a user with this id already exists
-            const existingUserById = await dbClient.usersCollection.findOne({ id: newData.id });
-            if (existingUserById) {
-                return res.status(400).json({ error: "User with this ID already exists" });
+            // Check if the new object contains an id
+            if (!("email" in newData)) {
+                return res.status(400).json({ error: `Missing email` });
             }
 
             // Check if a user with this email already exists
@@ -44,18 +36,38 @@ class UsersController {
     async getUsers(req, res) {
         // Fetch all users (toArray because find() returns a cursor)
         const users = await dbClient.usersCollection.find().toArray();
-        return res.status(200).json(users);
+        // Using mongodb's _id, we need to convert it to string and the field to id for Nomalizr
+        const modifiedUsers = users.map((user) => {
+            return {
+                ...user,
+                id: user._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                _id: undefined,
+            };
+        });
+        return res.status(200).json(modifiedUsers);
     }
 
 
     /* GET /users/id: returns the user with the id */
     async getUserByID(req, res) {
         // get the id from URL parameter (string, so we have to turn it to int)
-        const id = Number(req.params.id);
-        // Fetch the user from the database
-        const user = await dbClient.usersCollection.findOne({ id: id});
+        const id = req.params.id;
+
+        // Check if the id is a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid user ID format' });
+        }
+
+        // Fetch the user from the database (convert the id to ObjectId for mongodb)
+        let user = await dbClient.usersCollection.findOne({ _id: new ObjectId(id)});
 
         if (user) {
+            user = {
+                ...user,
+                id: user._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                _id: undefined,
+            };
+
             return res.status(200).json(user);
         } else {
             return res.status(400).json({ error: `No User with id: ${req.params.id}` });
@@ -66,17 +78,31 @@ class UsersController {
     /* UPDATE /users/id: updates the user with the id */
     async updateUser(req, res) {
         // get the id from URL parameter (string, so we have to turn it to int)
-        const id = Number(req.params.id);
+        let id = req.params.id;
+
+        // Check if the id is a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid user ID format' });
+        }
+
+        // Convert the id to ObjectId
+        id = new ObjectId(id);
+
         // Get all the fields (key-value pairs to update) from the request body
         const updateData = req.body;
         // Fetch the user from the database
-        const user = await dbClient.usersCollection.findOne({ id: id});
+        const user = await dbClient.usersCollection.findOne({ _id: id});
 
         if (user) {
             // Update the user
-            await dbClient.usersCollection.updateOne({ id: id}, { $set: updateData });
+            await dbClient.usersCollection.updateOne({ _id: id}, { $set: updateData });
             // Fetch the updated user
-            const updatedUser = await dbClient.usersCollection.findOne({ id: id });
+            const updatedUser = await dbClient.usersCollection.findOne({ _id: id });
+            updatedUser = {
+                ...updatedUser,
+                id: updatedUser._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                _id: undefined,
+            };
             return res.status(200).json(updatedUser);
         } else {
             return res.status(400).json({ error: `No User with id: ${req.params.id}` });
@@ -86,11 +112,18 @@ class UsersController {
 
     /* DELETE /users/id: deletes a user with the id */
     async deleteUser(req, res) {
-        const id = Number(req.params.id);
-        const user = await dbClient.usersCollection.findOne({ id: id});
+        let id = req.params.id;
+
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid user ID format' });
+        }
+
+        id = new ObjectId(id);
+        
+        const user = await dbClient.usersCollection.findOne({ _id: id});
 
         if (user) {
-            await dbClient.usersCollection.deleteOne({ id: id});
+            await dbClient.usersCollection.deleteOne({ _id: id});
             return res.status(200).json({ message: "User deleted successfully" });
         } else {
             return res.status(404).json({ error: `No User with id: ${req.params.id}` });

@@ -51,7 +51,7 @@ class Article extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.article && this.props.article.title && this.props.article !== prevProps.article) {
-            document.title = `Holberton School - ${this.props.article.title}`;
+            document.title = `CodeWave School - ${this.props.article.title}`;
         }
     }
 

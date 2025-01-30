@@ -1,4 +1,5 @@
 const dbClient = require('../../utils/db');
+const { ObjectId } = require('mongodb');
 
 
 /**
@@ -10,17 +11,6 @@ class UpdatesController {
         try {
             // Get the object (key-value pairs) from the request body
             const newData = req.body;
-
-            // Check if the new object contains an id
-            if (!("id" in newData)) {
-                return res.status(400).json({ error: `Missing id` });
-            }
-
-            // Check if a updates with this id already exists
-            const existingUpdateById = await dbClient.updatesCollection.findOne({ id: newData.id });
-            if (existingUpdateById) {
-                return res.status(400).json({ error: "Update with this ID already exists" });
-            }
 
             // Create the new updates
             const newUpdate = await dbClient.updatesCollection.insertOne(newData);
@@ -35,18 +25,39 @@ class UpdatesController {
     async getUpdates(req, res) {
         // Fetch all updates (toArray because find() returns a cursor)
         const updates = await dbClient.updatesCollection.find().toArray();
-        return res.status(200).json(updates);
+        const modifiedUpdates = updates.map((update) => {
+            return {
+                ...update,
+                id: update._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                _id: undefined,
+            };
+        });
+        return res.status(200).json(modifiedUpdates);
     }
 
 
     /* GET /updates/id: returns the updates with the id */
     async getUpdateByID(req, res) {
         // get the id from URL parameter (string, so we have to turn it to int)
-        const id = Number(req.params.id);
+        let id = req.params.id;
+
+        // Check if the id is a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid user ID format' });
+        }
+
+        // Convert the id to ObjectId
+        id = new ObjectId(id);
+
         // Fetch the updates from the database
-        const update = await dbClient.updatesCollection.findOne({ id: id});
+        let update = await dbClient.updatesCollection.findOne({ _id: id});
 
         if (update) {
+            update = {
+                ...update,
+                id: update._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                _id: undefined,
+            };
             return res.status(200).json(update);
         } else {
             return res.status(400).json({ error: `No Updates with id: ${req.params.id}` });
@@ -57,17 +68,31 @@ class UpdatesController {
     /* UPDATE /updates/id: updates the update with the id */
     async updateUpdate(req, res) {
         // get the id from URL parameter (string, so we have to turn it to int)
-        const id = Number(req.params.id);
+        let id = req.params.id;
+
+        // Check if the id is a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid user ID format' });
+        }
+
+        // Convert the id to ObjectId
+        id = new ObjectId(id);
+
         // Get all the fields (key-value pairs to update) from the request body
         const updateData = req.body;
         // Fetch the updates from the database
-        const update = await dbClient.updatesCollection.findOne({ id: id});
+        const update = await dbClient.updatesCollection.findOne({ _id: id});
 
         if (update) {
             // Update the updates
-            await dbClient.updatesCollection.updateOne({ id: id}, { $set: updateData });
+            await dbClient.updatesCollection.updateOne({ _id: id}, { $set: updateData });
             // Fetch the updated updates
-            const updatedUpdate = await dbClient.updatesCollection.findOne({ id: id });
+            let updatedUpdate = await dbClient.updatesCollection.findOne({ _id: id });
+            updatedUpdate = {
+                ...updatedUpdate,
+                id: updatedUpdate._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                _id: undefined,
+            };
             return res.status(200).json(updatedUpdate);
         } else {
             return res.status(400).json({ error: `No Update with id: ${req.params.id}` });
@@ -77,12 +102,19 @@ class UpdatesController {
 
     /* DELETE /updates/id: deletes a updates with the id */
     async deleteUpdate(req, res) {
-        const id = Number(req.params.id);
-        const update = await dbClient.updatesCollection.findOne({ id: id});
+        let id = req.params.id;
+
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid user ID format' });
+        }
+
+        id = new ObjectId(id);
+
+        const update = await dbClient.updatesCollection.findOne({ _id: id});
 
         if (update) {
-            await dbClient.updatesCollection.deleteOne({ id: id});
-            return res.status(200).json({ message: "Updates deleted successfully" });
+            await dbClient.updatesCollection.deleteOne({ _id: id});
+            return res.status(200).json({ message: "Update deleted successfully" });
         } else {
             return res.status(404).json({ error: `No Updates with id: ${req.params.id}` });
         }

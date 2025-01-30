@@ -1,4 +1,5 @@
 const dbClient = require('../../utils/db');
+const { ObjectId } = require('mongodb');
 
 
 /**
@@ -10,17 +11,6 @@ class NotificationsController {
         try {
             // Get the object (key-value pairs) from the request body
             const newData = req.body;
-
-            // Check if the new object contains an id
-            if (!("id" in newData)) {
-                return res.status(400).json({ error: `Missing id` });
-            }
-
-            // Check if a notification with this id already exists
-            const existingNotificationById = await dbClient.notificationsCollection.findOne({ id: newData.id.toString() });
-            if (existingNotificationById) {
-                return res.status(400).json({ error: "Notification with this ID already exists" });
-            }
 
             // Create the new notification
             const newNotification = await dbClient.notificationsCollection.insertOne(newData);
@@ -35,26 +25,41 @@ class NotificationsController {
     async getNotifications(req, res) {
         // Fetch all notifications (toArray because find() returns a cursor)
         const notifications = await dbClient.notificationsCollection.find().toArray();
-        /* In case we're using mongodb's _id, we need to convert it to string and the field to id for Nomalizr
+        // Using mongodb's _id, we need to convert it to string and the field to id for Nomalizr
         const modifiedNotifications = notifications.map((notification) => {
             return {
                 ...notification,
-                uid: notification._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                id: notification._id.toString(), // Use `_id` as the new `id` (converted to a string)
                 _id: undefined,
             };
-        });*/
-        return res.status(200).json(notifications);
+        });
+        return res.status(200).json(modifiedNotifications);
     }
 
     
     /* GET /notifications/id: returns the notification with the id */
     async getNotificationByID(req, res) {
         // get the id from URL parameter (string, so we have to turn it to int)
-        const id = req.params.id;
+        let id = req.params.id;
+
+        // Check if the id is a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid user ID format' });
+        }
+
+        // Convert the id to ObjectId
+        id = new ObjectId(id);
+
         // Fetch the notification from the database
-        const notification = await dbClient.notificationsCollection.findOne({ id: id});
+        let notification = await dbClient.notificationsCollection.findOne({ _id: id});
 
         if (notification) {
+            notification = {
+                ...notification,
+                id: notification._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                _id: undefined,
+            };
+
             return res.status(200).json(notification);
         } else {
             return res.status(400).json({ error: `No Notification with id: ${req.params.id}` });
@@ -65,17 +70,31 @@ class NotificationsController {
     /* UPDATE /notifications/id: updates the notification with the id */
     async updateNotification(req, res) {
         // get the id from URL parameter (string, so we have to turn it to int)
-        const id = req.params.id;
+        let id = req.params.id;
+
+        // Check if the id is a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid user ID format' });
+        }
+
+        // Convert the id to ObjectId
+        id = new ObjectId(id);
+
         // Get all the fields (key-value pairs to update) from the request body
         const updateData = req.body;
         // Fetch the notification from the database
-        const notification = await dbClient.notificationsCollection.findOne({ id: id});
+        const notification = await dbClient.notificationsCollection.findOne({ _id: id});
 
         if (notification) {
             // Update the notification
-            await dbClient.notificationsCollection.updateOne({ id: id}, { $set: updateData });
+            await dbClient.notificationsCollection.updateOne({ _id: id}, { $set: updateData });
             // Fetch the updated notification
-            const updatedNotification = await dbClient.notificationsCollection.findOne({ id: id });
+            const updatedNotification = await dbClient.notificationsCollection.findOne({ _id: id });
+            updatedNotification = {
+                ...updatedNotification,
+                id: updatedNotification._id.toString(), // Use `_id` as the new `id` (converted to a string)
+                _id: undefined,
+            };
             return res.status(200).json(updatedNotification);
         } else {
             return res.status(400).json({ error: `No Notification with id: ${req.params.id}` });
@@ -85,11 +104,18 @@ class NotificationsController {
 
     /* DELETE /notifications/id: deletes a user with the id */
     async deleteNotification(req, res) {
-        const id = req.params.id;
-        const notification = await dbClient.notificationsCollection.findOne({ id: id});
+        let id = req.params.id;
+
+        if (!ObjectId.isValid(id)) {
+            return res.status(400).json({ error: 'Invalid user ID format' });
+        }
+
+        id = new ObjectId(id);
+
+        const notification = await dbClient.notificationsCollection.findOne({ _id: id});
 
         if (notification) {
-            await dbClient.notificationsCollection.deleteOne({ id: id});
+            await dbClient.notificationsCollection.deleteOne({ _id: id});
             return res.status(200).json({ message: "Notification deleted successfully" });
         } else {
             return res.status(404).json({ error: `No Notification with id: ${req.params.id}` });
