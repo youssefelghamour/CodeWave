@@ -14,6 +14,10 @@ app.use(express.json());
 
 app.use('/', routes);
 
+// Serve static files (ex: images, CSS, JS) from the "public" folder
+// Used to serve the img logo/icon for the help.html page
+app.use(express.static("public"));
+
 // Ensure the database connection is established before running the API app
 (async () => {
     // Wait for the db connection

@@ -1,0 +1,132 @@
+* {
+    font-family: 'Poppins';
+}
+
+body {
+    margin: 0;
+}
+
+img {
+    position: relative;
+    width: 1.8rem;
+    padding: 12px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+
+/********************* Header *********************/
+
+header {
+    padding: 0 25px;
+    height: 60px;
+    font-family: Arial, sans-serif;
+    align-content: center;
+    background-color: #363636;
+    width: 100%;
+    font-size: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+header p {
+    margin: 0 40px 0 0;
+    font-size: 25px;
+    color: white;
+}
+
+header a {
+    color: #dedede;
+    margin-right: 18px;
+}
+
+
+
+/********************* Main *********************/
+
+main {
+    display: flex;
+    /*margin: 50px 160px 50px 90px;*/
+    font-family: Arial, sans-serif;
+    margin-right: 160px;
+}
+
+p {
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+    color: #005eac;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+li {
+    margin: 8px 0;
+}
+
+/************* Aside *************/
+
+aside {
+    width: 300px;
+    padding-right: 25px;
+    padding-left: 30px;
+    background-color: #efefef;
+    position: relative;
+    height: 100%;
+    margin-right: 40px;
+    border-radius: 6px;
+    height: auto;
+    min-height: 100vh;
+    width: 360px;
+    margin-right: 80px;
+}
+
+.aside_container {
+    position: sticky;
+    top: 15px;
+}
+
+aside ul {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+
+/************* Main Section *************/
+
+h1 {
+    color: #9e9e9e;
+    margin-left: -40px;
+    font-weight: 400;
+}
+
+#overview div {
+    font-size: 17px;
+    margin-left: 25px;
+}
+
+pre {
+    background: #efefef;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 14px;
+}
+
+#routes {
+    margin-bottom: 30px;
+}
+
+.routes {
+    background-color: #f2f1f1cf;
+    padding: 1px 20px;
+    border-radius: 6px;
+    border: 1px solid lightgrey;
+    margin-bottom: 15px;
+    margin-left: 25px;
+}
