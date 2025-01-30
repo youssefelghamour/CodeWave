@@ -30,6 +30,7 @@
                     <li><a href="#base-url">Base URL</a></li>
                     <li><a href="#status-codes">HTTP Status Codes</a></li>
                     <li><a href="#routes">Available Routes</a></li>
+                    <li><a href="#examples">Commands Examples</a></li>
                 </ul>
                 <h3>Links</h3>
                 <ul>
@@ -95,52 +96,131 @@
             </section>
 
             <section id="routes">
-                <h2 id="routes">Available Routes:</h2>
+                <h2 id="routes">Available Routes</h2>
 
                 <div class="routes">
                     <p>Users Routes:</p>
                     <ul>
-                        <li><b>CREATE /users/id</b> - Creates a new user</li>
+                        <li><b>CREATE /users/{id}</b> - Creates a new user</li>
                         <li><b><a href="/users">GET /users</a></b> - Retrieve all users</li>
-                        <li><b><a href="/users/1">GET /users/id</a></b> - Retrieve a user by id</li>
-                        <li><b>PUT /users/id</b> - Updates a user</li>
-                        <li><b>DELETE /users/id</b> - Deletes a user</li>
+                        <li><b><a href="/users/1">GET /users/{id}</a></b> - Retrieve a user by id</li>
+                        <li><b>PUT /users/{id}</b> - Updates a user</li>
+                        <li><b>DELETE /users/{id}</b> - Deletes a user</li>
                     </ul>
                 </div>
 
                 <div class="routes">
                     <p>Courses Routes:</p>
                     <ul>
-                        <li><b>CREATE /courses/id</b> - Creates a new course</li>
+                        <li><b>CREATE /courses/{id}</b> - Creates a new course</li>
                         <li><b><a href="/courses">GET /courses</a></b> - Retrieve all courses</li>
-                        <li><b><a href="/courses/1">GET /courses/id</a></b> - Retrieve a course by id</li>
-                        <li><b>PUT /courses/id</b> - Updates a course</li>
-                        <li><b>DELETE /courses/id</b> - Deletes a course</li>
+                        <li><b><a href="/courses/1">GET /courses/{id}</a></b> - Retrieve a course by id</li>
+                        <li><b>PUT /courses/{id}</b> - Updates a course</li>
+                        <li><b>DELETE /courses/{id}</b> - Deletes a course</li>
                     </ul>
                 </div>
 
                 <div class="routes">
                     <p>Notifications Routes:</p>
                     <ul>
-                        <li><b>CREATE /notifications/id</b> - Creates a new notification</li>
+                        <li><b>CREATE /notifications/{id}</b> - Creates a new notification</li>
                         <li><b><a href="/notifications">GET /notifications</a></b> - Retrieve all notifications</li>
-                        <li><b><a href="/notifications/5debd76480edafc8af244228">GET /notifications/id</a></b> - Retrieve a notification by id</li>
-                        <li><b>PUT /notifications/id</b> - Updates a notification</li>
-                        <li><b>DELETE /notifications/id</b> - Deletes a notification</li>
+                        <li><b><a href="/notifications/5debd76480edafc8af244228">GET /notifications/{id}</a></b> - Retrieve a notification by id</li>
+                        <li><b>PUT /notifications/{id}</b> - Updates a notification</li>
+                        <li><b>DELETE /notifications/{id}</b> - Deletes a notification</li>
                     </ul>
                 </div>
 
                 <div class="routes">
                     <p>News Routes:</p>
                     <ul>
-                        <li><b>CREATE /news/id</b> - Creates a new news</li>
+                        <li><b>CREATE /news/{id}</b> - Creates a new news</li>
                         <li><b><a href="/news">GET /news</a></b> - Retrieve all news</li>
-                        <li><b><a href="/news/1">GET /news/id</a></b> - Retrieve a news by id</li>
-                        <li><b>PUT /news/id</b> - Updates a news</li>
-                        <li><b>DELETE /news/id</b> - Deletes a news</li>
+                        <li><b><a href="/news/1">GET /news/{id}</a></b> - Retrieve a news by id</li>
+                        <li><b>PUT /news/{id}</b> - Updates a news</li>
+                        <li><b>DELETE /news/{id}</b> - Deletes a news</li>
                     </ul>
                 </div>
             </section>
+
+            <section id="examples">
+                <h2>API Commands Examples</h2>
+
+                <p>This section provides example API commands to interact with various endpoints, including users, courses, notifications, and news. Use these examples as templates for making requests to the CodeWave API.</p>
+            
+                <h3>Users:</h3>
+                <div>
+                    <p>GET all users:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/users</span></code></pre>
+                
+                    <p>CREATE a new user:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X POST</span> <span class="url">http://localhost:5000/users</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{ "id": 3, "email": "user3@email.com", "password": "password3", "firstName": "user3", "lastName": "OldLastName", "studentId": "128 011", "cohort": "19", "courses": [ { "id": "1", "name": "JavaScript Basics", "credit": 60, "start_date": "2024-10-01", "end_date": "2024-12-01", "duration": "3 months", "status": "In Progress", "isSelected": false }, { "id": "2", "name": "Node.js Basics", "credit": 50, "start_date": "2024-11-01", "end_date": "2024-12-01", "duration": "1 month", "status": "In Progress", "isSelected": false }] }'</code></pre>
+                
+                    <p>GET a user by id:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/users/3</span></code></pre>
+                
+                    <p>UPDATE a user:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X PUT</span> <span class="url">http://localhost:5000/users/3</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{ "lastName": "NewLastName" }'</code></pre>
+                
+                    <p>DELETE a user:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X DELETE</span> <span class="url">http://localhost:5000/users/3</span></code></pre>
+                </div>
+
+                <h3>Courses:</h3>
+                <div>
+                    <p>GET all courses:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/courses</span></code></pre>
+                
+                    <p>CREATE a new course:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X POST</span> <span class="url">http://localhost:5000/courses</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{ "id":"5","name":"ES6", "credit":60, "start_date":"2024-09-01", "end_date":"2024-12-01", "duration":"3 months", "status":"Completed"}'</code></pre>
+                
+                    <p>GET a course by id:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/courses/5</span></code></pre>
+                
+                    <p>UPDATE a course:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X PUT</span> <span class="url">http://localhost:5000/courses/5</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{ "name": "Updated Course Name" }'</code></pre>
+                
+                    <p>DELETE a course:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X DELETE</span> <span class="url">http://localhost:5000/courses/5</span></code></pre>
+                </div>
+            
+                <h3>Notifications:</h3>
+                <div>
+                    <p>GET all notifications:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/notifications</span></code></pre>
+                
+                    <p>CREATE a new notification:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X POST</span> <span class="url">http://localhost:5000/notifications</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{ "id":"5", "author": { "id": "5debd764a7c57c7839d722e9", "name": { "first": "user", "last": "lastname" }, "email": "user.name@email.com", "picture": "http://placehold.it/32x32", "age": 25 }, "context": { "guid": "2d8e40be-1c78-4de0-afc9-fcc147afd4d2", "isRead": true, "type": "urgent", "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit." } }'</code></pre>
+                
+                    <p>GET a notification by id:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/notifications/5</span></code></pre>
+                
+                    <p>UPDATE a notification:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X PUT</span> <span class="url">http://localhost:5000/notifications/5</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{"context.isRead": false}'</code></pre>
+                
+                    <p>DELETE a notification:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X DELETE</span> <span class="url">http://localhost:5000/notifications/5</span></code></pre>
+                </div>
+            
+                <h3>News:</h3>
+                <div>
+                    <p>GET all news:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/news</span></code></pre>
+                
+                    <p>CREATE a new news article:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X POST</span> <span class="url">http://localhost:5000/news</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{ "id": 5, "image": "news1.jpg", "type": "Sports", "title": "Exciting News", "subtitle": "An exciting day of competition and celebration.", "content": "Full article content here.", "date": "14 November 2024" }'</code></pre>
+                
+                    <p>GET a news article by id:</p>
+                    <pre><code><b>curl</b> <span class="url">http://localhost:5000/news/5</span></code></pre>
+                
+                    <p>UPDATE a news article:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X PUT</span> <span class="url">http://localhost:5000/news/5</span> <span class="arg">-H "Content-Type: application/json" -d</span> '{"type": "Updated News Type"}'</code></pre>
+                
+                    <p>DELETE a news article:</p>
+                    <pre><code><b>curl</b> <span class="arg">-X DELETE</span> <span class="url">http://localhost:5000/news/5</span></code></pre>
+                </div>
+            </section>
+            
         </div>
     </main>
 </body>
