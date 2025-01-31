@@ -133,5 +133,59 @@
     "end_date": "2024-10-01",
     "duration": "2.5 months",
     "status": "Completed"
+  },
+  {
+    "id": "16",
+    "name": "JavaScript Fundamentals",
+    "credit": 60,
+    "start_date": "2024-09-01",
+    "end_date": "2024-12-01",
+    "duration": "3 months",
+    "status": "Completed"
+  },
+  {
+    "id": "17",
+    "name": "React Basics",
+    "credit": 45,
+    "start_date": "2024-08-01",
+    "end_date": "2024-11-01",
+    "duration": "3 months",
+    "status": "In Progress"
+  },
+  {
+    "id": "18",
+    "name": "Node.js Basics",
+    "credit": 40,
+    "start_date": "2024-10-01",
+    "end_date": "2024-12-01",
+    "duration": "2 months",
+    "status": "In Progress"
+  },
+  {
+    "id": "19",
+    "name": "MongoDB Basics",
+    "credit": 35,
+    "start_date": "2024-10-01",
+    "end_date": "2024-12-01",
+    "duration": "2 months",
+    "status": "In Progress"
+  },
+  {
+    "id": "20",
+    "name": "GraphQL Basics",
+    "credit": 40,
+    "start_date": "2024-09-01",
+    "end_date": "2024-12-01",
+    "duration": "3 months",
+    "status": "Completed"
+  },
+  {
+    "id": "21",
+    "name": "API Development with Flask",
+    "credit": 50,
+    "start_date": "2024-08-01",
+    "end_date": "2024-10-01",
+    "duration": "2 months",
+    "status": "Completed"
   }
 ]
