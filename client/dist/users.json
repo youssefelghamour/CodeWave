@@ -1,4 +1,8 @@
-[
+[   {
+        "email": "admin@email.com",
+        "password": "admin",
+        "role": "admin"
+    },
     {
         "id": 1,
         "email": "youssefgr@email.com",
@@ -7,6 +11,7 @@
         "lastName": "El Ghamour",
         "studentId": "128 045",
         "cohort": "18",
+        "role": "student",
         "courses": [
             {
               "id": "1",
@@ -168,6 +173,7 @@
         "lastName": "Doe",
         "studentId": "108 187",
         "cohort": "20",
+        "role": "student",
         "courses": [
             {
                 "id": "1",

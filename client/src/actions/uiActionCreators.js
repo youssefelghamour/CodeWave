@@ -67,6 +67,6 @@ export const loginRequest = (email, password) => {
                     dispatch(loginFailure("Wrong Email or Password"));
                 }
             })
-            .catch((error) => dispatch(loginFailure()));
+            .catch((error) => dispatch(loginFailure("Network Error")));
     };
 };

@@ -47,10 +47,12 @@ class UsersController {
 
         // Update each course in the user's course list by replacing its id with the corresponding course's actual _id from the database
         for (const user of modifiedUsers) {
-            for (let course of user.courses) {
-                // courses have unique names
-                let courseDb = await dbClient.coursesCollection.findOne({ name: course.name });
-                course.id = courseDb._id;
+            if (!user.email === "admin@email.com") {
+                for (let course of user.courses) {
+                    // courses have unique names
+                    let courseDb = await dbClient.coursesCollection.findOne({ name: course.name });
+                    course.id = courseDb._id;
+                }
             }
         }
         return res.status(200).json(modifiedUsers);
@@ -77,11 +79,14 @@ class UsersController {
                 _id: undefined,
             };
 
-            // Update each course in the user's course list by replacing its id with the corresponding course's actual _id from the database
-            for (let course of user.courses) {
-                // courses have unique names
-                let courseDb = await dbClient.coursesCollection.findOne({ name: course.name });
-                course.id = courseDb._id;
+            // admin user doesn't have courses
+            if (!user.email === "admin@email.com") {
+                // Update each course in the user's course list by replacing its id with the corresponding course's actual _id from the database
+                for (let course of user.courses) {
+                    // courses have unique names
+                    let courseDb = await dbClient.coursesCollection.findOne({ name: course.name });
+                    course.id = courseDb._id;
+                }
             }
 
             return res.status(200).json(user);

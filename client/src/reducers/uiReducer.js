@@ -53,7 +53,7 @@ export const uiReducer = (state = initialStateUi, action) => {
             */
             return state.set('user', {
                 ...action.user,
-                courses: coursesNormalizer(action.user.courses).courses
+                courses: action.user.courses ? coursesNormalizer(action.user.courses).courses : [], // admin user doesn't have courses 
             });
         case SELECT_COURSE:
             return state.setIn(['user', 'courses', String(action.index), 'isSelected'], true);

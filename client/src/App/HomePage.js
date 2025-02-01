@@ -17,7 +17,20 @@ import Updates from '../News/Updates';
 import NewsSectionGrid from '../News/NewsSectionGrid';
 import Profile from '../Profile/Profile';
 import MiddleButtons from '../MiddleButtons/MiddleButtons';
+import { useNavigate } from 'react-router-dom';
 
+
+// HOC to inject navigate into a class component since it only works with function components
+// Define a function that wraps a class component and adds new functionality (in this case, navigation)
+const withNavigate = (WrappedComponent) => { 
+    return function WithNavigate(props) { 
+        // 'useNavigate' hook provides navigation function, allowing us to redirect
+        const navigate = useNavigate(); 
+
+        // Return the wrapped component with all the original props and the new 'navigate' prop
+        return <WrappedComponent {...props} navigate={navigate} />; 
+    };
+};
 
 export class Home extends Component {
 
@@ -27,6 +40,10 @@ export class Home extends Component {
   }
 
   componentDidMount() {
+    /* If the user is logged in as admin, and tries to visit the home page, we redirect them to the admin page */
+    if (this.props.isLoggedIn && this.props.user?.email === "admin@email.com") {
+      this.props.navigate("/admin");
+    }
     window.addEventListener('keydown', this.handleKeyDown);
     window.scrollTo(0, 0);
   }
@@ -46,6 +63,18 @@ export class Home extends Component {
       window.removeEventListener('keydown', this.handleKeyDown);
     }
   };
+
+  componentDidUpdate(prevProps) {
+    /* When the user logged in is an admin, this redirects to the admin page when they submit the login form
+      Otherwise, we stay on the home page and display the course list to the student
+      */
+    if (
+      this.props.isLoggedIn &&
+      this.props.user?.email === "admin@email.com"
+    ) {
+      this.props.navigate("/admin");
+    }
+  }
 
   render () {
     const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout, loginError } = this.props;
@@ -117,6 +146,7 @@ Home.defaultProps = {
   loginRequest: () => {},
   logout: () => {},
   loginError: "",
+  user: {},
 };
 
 const listCourses = [
@@ -154,6 +184,7 @@ export const mapStateToProps = (state) => ({
   isLoggedIn: state.ui.get('isUserLoggedIn'),
   loginError: state.ui.get('loginError'),
   displayDrawer: state.ui.get('isNotificationDrawerVisible'),
+  user: state.ui?.get('user'), // get user from state to check if it's admin, navigate to admin panel
 });
 
 export const mapDispatchToProps = {
@@ -164,4 +195,4 @@ export const mapDispatchToProps = {
   logout,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withNavigate(connect(mapStateToProps, mapDispatchToProps)(Home));
