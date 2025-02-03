@@ -6,6 +6,11 @@ import { filterTypeSelected, getNotifications, getUnreadNotificationsByType } fr
 import Notifications from "../Notifications/Notifications";
 import { setNotificationFilter } from "../actions/notificationActionCreators";
 import NotificationItem from "../Notifications/NotificationItem";
+import { HiMiniUsers } from "react-icons/hi2";
+import { getNews } from "../selectors/newsSelector";
+import { MdLibraryBooks } from "react-icons/md";
+
+
 
 
 
@@ -31,7 +36,7 @@ class Admin extends Component {
     }
 
     render() {
-        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter } = this.props;
+        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews } = this.props;
 
         // To ensure the admin panel isn't displayed before componentDidMount redirects to Home
         if (!this.props.isLoggedIn || this.props.user?.email !== "admin@email.com") {
@@ -39,22 +44,37 @@ class Admin extends Component {
         }
 
         return (
-            <Fragment>
+            <div className={css(styles.body)}>
                 <h1 className={css(styles.title)}>Admin Dashboard</h1>
       
                 <section className={css(styles.stats)}>
                     <div className={css(styles.users_courses)}>
-                    <div className={css(styles.users)} id="st">
-                        <p>users</p>
-                    </div>
-                    
-                    <div className={css(styles.courses)} id="st">
-                        <p>{numCourses}</p>
-                    </div>
+                        <div className={css(styles.users)} id="st">
+                            <HiMiniUsers />
+                            <p>users</p>
+                        </div>
+                        
+                        <div className={css(styles.courses)} id="st">
+                            <MdLibraryBooks />
+                            <p>{numCourses} Courses</p>
+                        </div>
                     </div>
                     
                     <div className={css(styles.news)} id="st">
-                    <p>news</p>
+                        <p className={css(styles.p)}>News & Updates Articles</p>
+                        <div className={css(styles.newsContainer)}>
+                            { listNews ? (
+                                listNews.map((news) => (
+                                    <div className={css(styles.newsItem)} key={news.id} onClick={() => this.handleClick(news.id)}>
+                                        <div className={css(styles.infoContainer)}>
+                                            <p className={css(styles.newsType)}>{news.type}</p>
+                                            <p className={css(styles.newsTitle)}>{news.title}</p>
+                                            <p className={css(styles.newsDate)}>{news.date}</p>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : ( <p>No news available</p>)}
+                        </div>
                     </div>
                     
                     <div className={css(styles.notifications)} id="st">
@@ -67,46 +87,62 @@ class Admin extends Component {
                                 </div>
                             </>
                         }
+                        <div className={css(styles.notifContainer)}>
 
-                        <ul className={css(styles.ul)}>
-                            { this.props.listNotifications ? (
-                                Object.values(this.props.listNotifications).map((notification) => (
+                            <ul className={css(styles.ul)}>
+                                { this.props.listNotifications ? (
+                                    Object.values(this.props.listNotifications).map((notification) => (
+                                        <NotificationItem
+                                            id={ notification.guid }
+                                            key={ notification.guid }
+                                            type={ notification.type }
+                                            value={ notification.value }
+                                            html={ notification.html }
+                                        />
+                                    ))
+                                ) : (
                                     <NotificationItem
-                                        id={ notification.guid }
-                                        key={ notification.guid }
-                                        type={ notification.type }
-                                        value={ notification.value }
-                                        html={ notification.html }
+                                        id={ 0 }
+                                        type="default"
+                                        value="No new notification for now"
                                     />
-                                ))
-                            ) : (
-                                <NotificationItem
-                                    id={ 0 }
-                                    type="default"
-                                    value="No new notification for now"
-                                />
-                            )}
-                        </ul>
+                                )}
+                            </ul>
+                        </div>
                     </div>
                 </section>
-            </Fragment>
+            </div>
         );
     }
 }
 
 
 const styles = StyleSheet.create({
+    body: {
+        backgroundColor: '#8080801f',
+        height: '100vh',
+        overflow: 'hidden',
+    },
+    title: {
+        fontFamily: 'Poppins, sans-serif',
+        position: 'relative',
+        left: '10%',
+    },
+
     stats: {
         display: 'flex',
-        gap: '10px',
-        padding: '10px 40px',
+        gap: '20px',
+        padding: '10px',
         height: '380px',
         overflow: 'hidden',
+        fontFamily: 'Poppins, sans-serif',
+        width: '80%',
+        justifySelf: 'center',
     },
     
     users_courses: {
         display: 'flex',
-        gap: '10px',
+        gap: '20px',
         flexDirection: 'column',
         width: '20%',
     },
@@ -116,8 +152,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         boxShadow: '1px 1px 10px #c4c3c3',
-        borderRadius: '17px',
+        borderRadius: '8px',
         height: '50%',
+        backgroundColor: 'white',
     },
     
     courses: {
@@ -125,26 +162,92 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         boxShadow: '1px 1px 10px #c4c3c3',
-        borderRadius: '17px',
+        borderRadius: '8px',
         height: '50%',
+        backgroundColor: 'white',
     },
     
+
+
+
     news: {
-        padding: '10px',
+        padding: '15px',
         flex: '1',
         boxShadow: '1px 1px 10px #c4c3c3',
-        borderRadius: '17px',
+        borderRadius: '8px',
         width: '40%',
+        backgroundColor: 'white',
     },
+
+    newsContainer: {
+        height: 'calc(100% - 55px)',
+        overflowY: 'auto',
+        padding: '0 15px 0 5px',
+        marginTop: '16px',
+    },
+
+    newsItem: {
+        //padding: '10px',
+        borderBottom: '1px solid #dedcdc',
+        display: 'flex',
+        flexDirection: 'column',
+        cursor: 'pointer',
+        alignSelf: 'stretch',
+        transition: 'transform ease',
+
+        ':hover': {
+            transform: 'scale(102%)',
+        },
+    },
+
+    infoContainer: {
+        padding: '8px 15px',
+        /*backgroundColor: '#f2b1b282',
+        background: 'linear-gradient(149deg, #e1003c 37%, #f100a5)',
+        color: 'white',*/
+        //backgroundColor: '#b7b7b74f',
+        color: 'black',
+    },
+
+    newsType: {
+        //margin: '5px 0',
+        margin: '0',
+        fontSize: '0.8rem',
+    },
+
+    newsTitle: {
+        //margin: '5px 0',
+        margin: '0',
+        fontSize: '1rem',
+        fontWeight: 'bold',
+    },
+
+    newsDate: {
+        margin: '5px 0',
+        fontSize: '0.7rem',
+    },
+
+
+
+
+
+
     
     notifications: {
         padding: '15px',
         flex: '1',
         boxShadow: '1px 1px 10px #c4c3c3',
-        borderRadius: '17px',
+        borderRadius: '8px',
         width: '40%',
         overflow: 'hidden',
-        overflowY: 'scroll',
+        backgroundColor: 'white',
+    },
+
+    notifContainer: {
+        height: '74%',
+        overflowY: 'auto',
+        padding: '0 15px 0 5px',
+        marginTop: '16px',
     },
 
     p: {
@@ -160,6 +263,7 @@ const styles = StyleSheet.create({
     },
 
     ul: {
+        marginTop: '0',
         listStyleType: 'none',
         padding: '0',
         '@media (max-width: 900px)': {
@@ -204,16 +308,14 @@ const styles = StyleSheet.create({
     },
 });
 
-export const mapStateToProps = (state) => {
-
-    return {
-        isLoggedIn: state.ui.get('isUserLoggedIn'),
-        user: state.ui?.get('user'),
-        numCourses: state.courses.size || 0,
-        listNotifications: getUnreadNotificationsByType(state),
-        filter: filterTypeSelected(state),
-    };
-};
+export const mapStateToProps = (state) => ({
+    isLoggedIn: state.ui.get('isUserLoggedIn'),
+    user: state.ui?.get('user'),
+    numCourses: state.courses.size || 0,
+    listNotifications: getUnreadNotificationsByType(state),
+    filter: filterTypeSelected(state),
+    listNews: getNews(state),
+});
 
 const mapDispatchToProps = {
     setNotificationFilter,
