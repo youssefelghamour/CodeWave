@@ -6,3 +6,4 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const SELECT_COURSE = 'SELECT_COURSE';
 export const UNSELECT_COURSE = 'UNSELECT_COURSE';
+export const GET_USERS = 'GET_USERS';

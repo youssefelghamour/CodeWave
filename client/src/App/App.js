@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './HomePage';
 import Article from './ArticlePage';
-import Admin from './Admin';
+import Admin from './AdminPage';
 
 const App = () => {
   return (

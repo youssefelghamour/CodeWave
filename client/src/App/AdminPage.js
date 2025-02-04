@@ -9,6 +9,9 @@ import NotificationItem from "../Notifications/NotificationItem";
 import { HiMiniUsers } from "react-icons/hi2";
 import { getNews } from "../selectors/newsSelector";
 import { MdLibraryBooks } from "react-icons/md";
+import { fetchUsers } from "../actions/uiActionCreators";
+import { getUsers } from "../selectors/uiSelector";
+import StudentsTable from "../AdminComponents/StudentsTable";
 
 
 
@@ -33,10 +36,13 @@ class Admin extends Component {
         if (!this.props.isLoggedIn || this.props.user?.email !== "admin@email.com") {
           this.props.navigate("/");
         }
+
+        // PoPulate state.ui.users with the whole list of users from the database
+        this.props.fetchUsers();
     }
 
     render() {
-        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews } = this.props;
+        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers } = this.props;
 
         // To ensure the admin panel isn't displayed before componentDidMount redirects to Home
         if (!this.props.isLoggedIn || this.props.user?.email !== "admin@email.com") {
@@ -50,13 +56,13 @@ class Admin extends Component {
                 <section className={css(styles.stats)}>
                     <div className={css(styles.users_courses)}>
                         <div className={css(styles.users)} id="st">
-                            <HiMiniUsers />
-                            <p>users</p>
+                            <HiMiniUsers size={40}/>
+                            <p>{listUsers.size ? <><b>{listUsers.size - 1}</b> Students</> : 'No Students'}</p>
                         </div>
                         
                         <div className={css(styles.courses)} id="st">
-                            <MdLibraryBooks />
-                            <p>{numCourses} Courses</p>
+                            <MdLibraryBooks size={40}/>
+                            <p><b>{numCourses}</b> Courses</p>
                         </div>
                     </div>
                     
@@ -111,6 +117,12 @@ class Admin extends Component {
                         </div>
                     </div>
                 </section>
+
+                <section className={css(styles.studentsSection)}>
+                    { listUsers ? (
+                        <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')}/>
+                    ) : (<p>no users</p>)}
+                </section>
             </div>
         );
     }
@@ -155,6 +167,7 @@ const styles = StyleSheet.create({
         borderRadius: '8px',
         height: '50%',
         backgroundColor: 'white',
+        flexDirection: 'column',
     },
     
     courses: {
@@ -165,6 +178,7 @@ const styles = StyleSheet.create({
         borderRadius: '8px',
         height: '50%',
         backgroundColor: 'white',
+        flexDirection: 'column',
     },
     
 
@@ -306,6 +320,16 @@ const styles = StyleSheet.create({
         border: 'none',
         color: 'white',
     },
+
+
+
+    studentsSection: {
+        width: '80%',
+        justifySelf: 'center',
+        fontFamily: 'Poppins',
+        marginTop: '20px',
+        boxShadow: 'rgb(196, 195, 195) 1px 1px 10px',
+    },
 });
 
 export const mapStateToProps = (state) => ({
@@ -315,10 +339,12 @@ export const mapStateToProps = (state) => ({
     listNotifications: getUnreadNotificationsByType(state),
     filter: filterTypeSelected(state),
     listNews: getNews(state),
+    listUsers: getUsers(state),
 });
 
 const mapDispatchToProps = {
     setNotificationFilter,
+    fetchUsers,
 };
 
 export default withNavigate(connect(mapStateToProps, mapDispatchToProps)(Admin));

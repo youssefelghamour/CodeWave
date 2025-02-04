@@ -1,4 +1,4 @@
-import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, SELECT_COURSE, UNSELECT_COURSE } from "./uiActionTypes";
+import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT, SELECT_COURSE, UNSELECT_COURSE, GET_USERS } from "./uiActionTypes";
 
 
 export const login = (user) => ({
@@ -52,6 +52,11 @@ export const loginFailure = (error) => ({
     error,
 });
 
+export const getUsers = (users) => ({
+    type: GET_USERS,
+    users: users,
+});
+
 
 export const loginRequest = (email, password) => {
     return (dispatch) => {
@@ -67,6 +72,16 @@ export const loginRequest = (email, password) => {
                     dispatch(loginFailure("Wrong Email or Password"));
                 }
             })
+            .catch((error) => dispatch(loginFailure("Network Error")));
+    };
+};
+
+
+export const fetchUsers = () => {
+    return (dispatch) => {
+        return fetch('http://localhost:5000/users')
+            .then((res) => res.json())
+            .then((users) => { dispatch(getUsers(users))})
             .catch((error) => dispatch(loginFailure("Network Error")));
     };
 };

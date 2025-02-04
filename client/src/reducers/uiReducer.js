@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN_SUCCESS, LOGIN_FAILURE, SELECT_COURSE, UNSELECT_COURSE } from "../actions/uiActionTypes";
+import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN_SUCCESS, LOGIN_FAILURE, SELECT_COURSE, UNSELECT_COURSE, GET_USERS } from "../actions/uiActionTypes";
 import { Map } from 'immutable';
 import { coursesNormalizer } from "../schema/courses";
 
@@ -59,6 +59,10 @@ export const uiReducer = (state = initialStateUi, action) => {
             return state.setIn(['user', 'courses', String(action.index), 'isSelected'], true);
         case UNSELECT_COURSE:
             return state.setIn(['user', 'courses', String(action.index), 'isSelected'], false);
+        case GET_USERS:
+            // Store users as an immutable Map so we can index them by their actual IDs instead of autoincremented ids
+            // Make a list of key value pairs [id, user]: [user.id, user], so immutable converts the array into a map with the id being the key
+            return state.set('users', Map(action.users.map(user => [user.id, user])));
         default:
             return state;
     }
