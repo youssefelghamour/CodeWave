@@ -7,23 +7,37 @@ class StudentsTable extends Component {
         super(props);
         this.state = {
             users: this.props.listUsers || [],
+            // Keeps track of which user and field is being edited
+            editingIndex: null, // Index of the row (autoincrement)
+            editingField: null, // firstName, email, ...
         };
     }
-  
-    handleEdit = (e, index, field) => {
-        const newUsers = [...this.state.users];
-        newUsers[index][field] = e.target.value;
-        this.setState({ users: newUsers });
+
+    handleEdit = (index, field) => {
+        /* Function to mark which field of the user is being edited*/
+        this.setState({ editingIndex: index, editingField: field });
     };
-  
+
+    handleChange = (e, index, field) => {
+        /* Function to handle changes made to input fields */
+        const newUsers = [...this.state.users]; // Make a copy of the users array
+        newUsers[index][field] = e.target.value; // Update the field of the user with new value
+        this.setState({ users: newUsers }); // Update state with the modified list of users
+    };
+
+    handleBlur = () => {
+        /* Get out of edit mode (input) when the input field loses focus (click outside) */
+        this.setState({ editingIndex: null, editingField: null });
+    };
+
     handleSave = (index) => {
+        /* Fuction that dispatches a function that sends an Update request to the API */
         const userToSave = this.state.users[index];
-        // Call API
-        console.log('Saving user:', userToSave);
+        console.log("Saving user:", userToSave);
     };
 
     componentDidUpdate(prevProps) {
-        // props might not be available when the constructor runs, so this ensures to update the state when they're passed in
+        /* Update the state if props change */
         if (prevProps.listUsers !== this.props.listUsers) {
             this.setState({ users: this.props.listUsers });
         }
@@ -43,15 +57,34 @@ class StudentsTable extends Component {
                 </tr>
             </thead>
             <tbody>
+                {/* Rows: loop through users */}
                 {this.state.users.map((user, index) => (
-                <tr key={user.id}>
-                    <td className={css(styles.thTd)}><input className={css(styles.input)} value={user.firstName} onChange={(e) => this.handleEdit(e, index, 'firstName')} /></td>
-                    <td className={css(styles.thTd)}><input className={css(styles.input)} value={user.lastName} onChange={(e) => this.handleEdit(e, index, 'lastName')} /></td>
-                    <td className={css(styles.thTd)}><input className={css(styles.input)} value={user.email} onChange={(e) => this.handleEdit(e, index, 'email')} /></td>
-                    <td className={css(styles.thTd)}><input className={css(styles.input)} value={user.cohort} onChange={(e) => this.handleEdit(e, index, 'cohort')} /></td>
-                    <td className={css(styles.thTd)}><input className={css(styles.input)} value={user.studentId} onChange={(e) => this.handleEdit(e, index, 'studentId')} /></td>
-                    <td className={css(styles.thTd)}><button onClick={() => this.handleSave(index)}>Save</button></td>
-                </tr>
+                    <tr key={user.id}>
+                        {/* Columns: loop through each field of the user */}
+                        {["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
+                            <td
+                                key={field}
+                                className={css(styles.thTd)}
+                                onClick={() => this.handleEdit(index, field)} // When clicked, set the cell to be editable
+                            >
+                                {this.state.editingIndex === index && this.state.editingField === field ? (
+                                    <input
+                                        className={css(styles.input)}
+                                        value={user[field]}
+                                        onChange={(e) => this.handleChange(e, index, field)}
+                                        onBlur={this.handleBlur} // When input loses focus, stop editing
+                                        autoFocus // Places the cursor in the clicked-on input cell (for typing)
+                                    />
+                                ) : (
+                                    user[field] // If not editing, show the user data as text
+                                )}
+                            </td>
+                        ))}
+                        <td className={css(styles.thTd)}>
+                            <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
+                            <button className={css(styles.coursesButton)} onClick={() => this.handleSave(index)}>Courses</button>
+                        </td>
+                    </tr>
                 ))}
             </tbody>
         </table>
@@ -66,7 +99,7 @@ const styles = StyleSheet.create({
         borderCollapse: 'collapse',
         backgroundColor: 'white',
         borderRadius: '8px',
-        tableLayout: 'fixed',
+        /*tableLayout: 'fixed',*/
     },
         
     thTd: {
@@ -82,6 +115,24 @@ const styles = StyleSheet.create({
     input: {
         width: '100%',
         boxSizing: 'border-box',
+    },
+
+    saveButton: {
+        padding: '6px 12px',
+        backgroundColor: '#49c785',
+        border: 'none',
+        color: 'white',
+        borderRadius: '30px',
+        marginRight: '10px',
+    },
+
+    coursesButton: {
+        padding: '6px 12px',
+        backgroundColor: '#433131',
+        border: 'none',
+        color: 'white',
+        borderRadius: '30px',
+        marginRight: '10px',
     },
 });
 
