@@ -85,3 +85,19 @@ export const fetchUsers = () => {
             .catch((error) => dispatch(loginFailure("Network Error")));
     };
 };
+
+
+export const updateUser = (updatedUser) => {
+    return (dispatch) => {
+        return fetch(`http://localhost:5000/users/${updatedUser.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUser),
+        })
+        .then(response => response.json())
+        .then(data => console.log(`Updated user: ${JSON.stringify(data)}`))
+        .catch(error => console.error('Error:', error));
+    };
+};

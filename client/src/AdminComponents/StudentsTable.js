@@ -36,7 +36,8 @@ class StudentsTable extends Component {
         // userToSave will be undefined if we click save without modifying anything
         // So only send an UPDATE request to the API if we made a modification
         if (userToSave) {
-            console.log("OUI Saving user:", userToSave);
+            console.log("Saving user:", userToSave);
+            this.props.updateUser(userToSave);
         }
     };
 

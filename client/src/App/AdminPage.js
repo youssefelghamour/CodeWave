@@ -9,7 +9,7 @@ import NotificationItem from "../Notifications/NotificationItem";
 import { HiMiniUsers } from "react-icons/hi2";
 import { getNews } from "../selectors/newsSelector";
 import { MdLibraryBooks } from "react-icons/md";
-import { fetchUsers } from "../actions/uiActionCreators";
+import { fetchUsers, updateUser } from "../actions/uiActionCreators";
 import { getUsers } from "../selectors/uiSelector";
 import StudentsTable from "../AdminComponents/StudentsTable";
 
@@ -42,7 +42,7 @@ class Admin extends Component {
     }
 
     render() {
-        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers } = this.props;
+        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers, updateUser } = this.props;
 
         // To ensure the admin panel isn't displayed before componentDidMount redirects to Home
         if (!this.props.isLoggedIn || this.props.user?.email !== "admin@email.com") {
@@ -120,7 +120,7 @@ class Admin extends Component {
 
                 <section className={css(styles.studentsSection)}>
                     { listUsers ? (
-                        <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')}/>
+                        <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser}/>
                     ) : (<p>no users</p>)}
                 </section>
             </div>
@@ -345,6 +345,7 @@ export const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     setNotificationFilter,
     fetchUsers,
+    updateUser,
 };
 
 export default withNavigate(connect(mapStateToProps, mapDispatchToProps)(Admin));
