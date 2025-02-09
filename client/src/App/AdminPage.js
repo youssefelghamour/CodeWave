@@ -12,9 +12,14 @@ import { MdLibraryBooks } from "react-icons/md";
 import { fetchUsers, updateUser } from "../actions/uiActionCreators";
 import { getUsers } from "../selectors/uiSelector";
 import StudentsTable from "../AdminComponents/StudentsTable";
-
-
-
+import logo from '../../dist/logo.png';
+import { FaArrowLeft } from "react-icons/fa";
+import { FaCircleUser } from "react-icons/fa6";
+import { FiUsers } from "react-icons/fi";
+import { LiaBookSolid } from "react-icons/lia";
+import { PiNewspaper } from "react-icons/pi";
+import { MdOutlineTipsAndUpdates } from "react-icons/md";
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 
 // HOC to inject navigate into a class component since it only works with function components
@@ -51,78 +56,124 @@ class Admin extends Component {
 
         return (
             <div className={css(styles.body)}>
-                <h1 className={css(styles.title)}>Admin Dashboard</h1>
-      
-                <section className={css(styles.stats)}>
-                    <div className={css(styles.users_courses)}>
-                        <div className={css(styles.users)} id="st">
-                            <HiMiniUsers size={40}/>
-                            <p>{listUsers.size ? <><b>{listUsers.size - 1}</b> Students</> : 'No Students'}</p>
+                <aside className={css(styles.sideBar)}>
+                    <div className={css(styles.logo)}>
+                        <img className={css(styles.img)} src={logo} alt="logo" />
+                        <h2>CodeWave</h2>
+                    </div>
+                    
+                    <nav>
+                        <p className={css(styles.asideTitle)}>Dashboard</p>
+                        
+                        <div className={css(styles.navItemContainer)}>
+                            <FiUsers />
+                            <p className={css(styles.navItems)}>Students</p>
+                        </div>
+                        <div className={css(styles.navItemContainer)}>
+                            <PiNewspaper />
+                            <p className={css(styles.navItems)}>News</p>
+                        </div>
+                        <div className={css(styles.navItemContainer)}>
+                            <MdOutlineTipsAndUpdates />
+                            <p className={css(styles.navItems)}>Updates</p>
+                        </div>
+                        <div className={css(styles.navItemContainer)}>
+                            <IoMdNotificationsOutline />
+                            <p className={css(styles.navItems)}>Notifications</p>
+                        </div>
+                        <div className={css(styles.navItemContainer)}>
+                            <LiaBookSolid />
+                            <p className={css(styles.navItems)}>Courses</p>
+                        </div>
+                    </nav>
+
+                    <div className={css(styles.asideFooter)}>
+                        <FaArrowLeft />
+                        <p style={{margin: '0 0 0 13px',}}>Return Home</p>
+                    </div>
+                </aside>
+
+                <div className={css(styles.main)}>
+                    <div className={css(styles.header)}>
+                        <h1 className={css(styles.title)}>Admin Dashboard</h1>
+                        <div className={css(styles.logout)}>
+                            Admin
+                            <FaCircleUser size={25}/>
+                            <button className={css(styles.logoutButton)}>Logout</button>
+                        </div>
+                    </div>
+        
+                    <section className={css(styles.stats)}>
+                        <div className={css(styles.users_courses)}>
+                            <div className={css(styles.users)} id="st">
+                                <HiMiniUsers size={40}/>
+                                <p>{listUsers.size ? <><b>{listUsers.size - 1}</b> Students</> : 'No Students'}</p>
+                            </div>
+                            
+                            <div className={css(styles.courses)} id="st">
+                                <MdLibraryBooks size={40}/>
+                                <p><b>{numCourses}</b> Courses</p>
+                            </div>
                         </div>
                         
-                        <div className={css(styles.courses)} id="st">
-                            <MdLibraryBooks size={40}/>
-                            <p><b>{numCourses}</b> Courses</p>
-                        </div>
-                    </div>
-                    
-                    <div className={css(styles.news)} id="st">
-                        <p className={css(styles.p)}>News & Updates Articles</p>
-                        <div className={css(styles.newsContainer)}>
-                            { listNews ? (
-                                listNews.map((news) => (
-                                    <div className={css(styles.newsItem)} key={news.id} onClick={() => this.handleClick(news.id)}>
-                                        <div className={css(styles.infoContainer)}>
-                                            <p className={css(styles.newsType)}>{news.type}</p>
-                                            <p className={css(styles.newsTitle)}>{news.title}</p>
-                                            <p className={css(styles.newsDate)}>{news.date}</p>
+                        <div className={css(styles.news)} id="st">
+                            <p className={css(styles.p)}>News & Updates Articles</p>
+                            <div className={css(styles.newsContainer)}>
+                                { listNews ? (
+                                    listNews.map((news) => (
+                                        <div className={css(styles.newsItem)} key={news.id} onClick={() => this.handleClick(news.id)}>
+                                            <div className={css(styles.infoContainer)}>
+                                                <p className={css(styles.newsType)}>{news.type}</p>
+                                                <p className={css(styles.newsTitle)}>{news.title}</p>
+                                                <p className={css(styles.newsDate)}>{news.date}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                ))
-                            ) : ( <p>No news available</p>)}
-                        </div>
-                    </div>
-                    
-                    <div className={css(styles.notifications)} id="st">
-                        {this.props.listNotifications && 
-                            <>
-                                <p className={css(styles.p)}>Notifications</p>
-                                <div className={css(styles.filterContainer)}>
-                                    <button className={css(this.props.filter === 'DEFAULT' ? styles.filterButtonSelected : styles.filterButton)} onClick={() => this.props.setNotificationFilter('DEFAULT')}>All</button>
-                                    <button className={css(this.props.filter === 'URGENT' ? styles.filterButtonSelected : styles.filterButton)} onClick={() => this.props.setNotificationFilter('URGENT')}>Urgent</button>
-                                </div>
-                            </>
-                        }
-                        <div className={css(styles.notifContainer)}>
-
-                            <ul className={css(styles.ul)}>
-                                { this.props.listNotifications ? (
-                                    Object.values(this.props.listNotifications).map((notification) => (
-                                        <NotificationItem
-                                            id={ notification.guid }
-                                            key={ notification.guid }
-                                            type={ notification.type }
-                                            value={ notification.value }
-                                            html={ notification.html }
-                                        />
                                     ))
-                                ) : (
-                                    <NotificationItem
-                                        id={ 0 }
-                                        type="default"
-                                        value="No new notification for now"
-                                    />
-                                )}
-                            </ul>
+                                ) : ( <p>No news available</p>)}
+                            </div>
                         </div>
-                    </div>
-                </section>
+                        
+                        <div className={css(styles.notifications)} id="st">
+                            {this.props.listNotifications && 
+                                <>
+                                    <p className={css(styles.p)}>Notifications</p>
+                                    <div className={css(styles.filterContainer)}>
+                                        <button className={css(this.props.filter === 'DEFAULT' ? styles.filterButtonSelected : styles.filterButton)} onClick={() => this.props.setNotificationFilter('DEFAULT')}>All</button>
+                                        <button className={css(this.props.filter === 'URGENT' ? styles.filterButtonSelected : styles.filterButton)} onClick={() => this.props.setNotificationFilter('URGENT')}>Urgent</button>
+                                    </div>
+                                </>
+                            }
+                            <div className={css(styles.notifContainer)}>
 
-                <section className={css(styles.studentsSection)}>
-                    { listUsers ? (
-                        <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser}/>
-                    ) : (<p>no users</p>)}
-                </section>
+                                <ul className={css(styles.ul)}>
+                                    { this.props.listNotifications ? (
+                                        Object.values(this.props.listNotifications).map((notification) => (
+                                            <NotificationItem
+                                                id={ notification.guid }
+                                                key={ notification.guid }
+                                                type={ notification.type }
+                                                value={ notification.value }
+                                                html={ notification.html }
+                                            />
+                                        ))
+                                    ) : (
+                                        <NotificationItem
+                                            id={ 0 }
+                                            type="default"
+                                            value="No new notification for now"
+                                        />
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className={css(styles.studentsSection)}>
+                        { listUsers ? (
+                            <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser}/>
+                        ) : (<p>no users</p>)}
+                    </section>
+                </div>
             </div>
         );
     }
@@ -134,11 +185,113 @@ const styles = StyleSheet.create({
         backgroundColor: '#8080801f',
         height: '100vh',
         overflow: 'hidden',
+        display: 'flex',
+        fontFamily: 'Poppins',
+        fontSize: '14px',
     },
+
+    sideBar: {
+        width: '15%',
+        position: 'relative',
+        minHeight: '100vh',
+        paddingLeft: '25px',
+        paddingRight: '25px',
+        backgroundColor: 'grey',
+        marginRight: '25px',
+        background: 'linear-gradient(149deg, #da2c52 37%, #da2550)',
+        color: 'white',
+        borderBottomRightRadius: '27px',
+        borderTopRightRadius: '27px',
+    },
+
+    logo: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+
+    img: {
+        width: '2rem',
+        height: 'fit-content',
+        padding: '12px 8px 12px 0',
+        cursor: 'pointer',
+        filter: 'brightness(10)',
+    },
+
+    asideTitle: {
+        padding: '12px 18px',
+        color: 'black',
+        borderRadius: '8px',
+        backgroundColor: 'white',
+    },
+
+    navItemContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        marginLeft: '14px',
+    },
+
+    navItems: {
+        fontSize: '14px',
+        color: 'white',
+        cursor: 'pointer',
+        margin: '5px',
+        marginLeft: '14px',
+
+        ':hover': {
+            color: 'lightgrey',
+        },
+    },
+
+    asideFooter: {
+        display: 'flex',
+        position: 'absolute',
+        bottom: '3%',
+        fontSize: '16px',
+        alignItems: 'center',
+        cursor: 'pointer',
+
+        ':hover': {
+            color: 'lightgrey',
+        },
+    },
+
+
+
+    main: {
+        width: '100%',
+        marginRight: '25px',
+    },
+
+    header: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+
+    logout: {
+        display: 'flex',
+        position: 'absolute',
+        right: '25px',
+        gap: '10px',
+        alignItems: 'center',
+    },
+
+    logoutButton: {
+        padding: '6px 12px',
+        backgroundColor: 'red',
+        border: 'none',
+        color: 'white',
+        borderRadius: '30px',
+        cursor: 'pointer',
+
+        ':hover' : {
+            backgroundColor: '#da2c52',
+        },
+    },
+
     title: {
         fontFamily: 'Poppins, sans-serif',
         position: 'relative',
-        left: '10%',
+        /*left: '10%',*/
     },
 
     stats: {
@@ -148,7 +301,8 @@ const styles = StyleSheet.create({
         height: '380px',
         overflow: 'hidden',
         fontFamily: 'Poppins, sans-serif',
-        width: '80%',
+        /*width: '80%',*/
+        width: '100%',
         justifySelf: 'center',
     },
     
@@ -163,7 +317,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '1px 1px 10px #c4c3c3',
+        boxShadow: 'rgb(196 195 195 / 67%) 0px 0px 10px',
+        border: '1.5px solid #95959566',
         borderRadius: '8px',
         height: '50%',
         backgroundColor: 'white',
@@ -174,7 +329,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '1px 1px 10px #c4c3c3',
+        boxShadow: 'rgb(196 195 195 / 67%) 0px 0px 10px',
+        border: '1.5px solid #95959566',
         borderRadius: '8px',
         height: '50%',
         backgroundColor: 'white',
@@ -187,7 +343,8 @@ const styles = StyleSheet.create({
     news: {
         padding: '15px',
         flex: '1',
-        boxShadow: '1px 1px 10px #c4c3c3',
+        boxShadow: 'rgb(196 195 195 / 67%) 0px 0px 10px',
+        border: '1.5px solid #95959566',
         borderRadius: '8px',
         width: '40%',
         backgroundColor: 'white',
@@ -237,7 +394,7 @@ const styles = StyleSheet.create({
     },
 
     newsDate: {
-        margin: '5px 0',
+        margin: '0',
         fontSize: '0.7rem',
     },
 
@@ -250,7 +407,8 @@ const styles = StyleSheet.create({
     notifications: {
         padding: '15px',
         flex: '1',
-        boxShadow: '1px 1px 10px #c4c3c3',
+        boxShadow: 'rgb(196 195 195 / 67%) 0px 0px 10px',
+        border: '1.5px solid #95959566',
         borderRadius: '8px',
         width: '40%',
         overflow: 'hidden',
@@ -324,7 +482,8 @@ const styles = StyleSheet.create({
 
 
     studentsSection: {
-        width: '80%',
+        /*width: '80%',*/
+        width: '100%',
         justifySelf: 'center',
         fontFamily: 'Poppins',
         marginTop: '20px',
