@@ -9,13 +9,12 @@ class StudentsTable extends Component {
             users: this.props.listUsers || [],
             // Keeps track of which user and field is being edited
             editingIndex: null, // Index of the row (autoincrement)
-            editingField: null, // firstName, email, ...
         };
     }
 
     handleEdit = (index, field) => {
         /* Function to mark which field of the user is being edited*/
-        this.setState({ editingIndex: index, editingField: field });
+        this.setState({ editingIndex: index });
     };
 
     handleChange = (e, index, field) => {
@@ -27,17 +26,22 @@ class StudentsTable extends Component {
 
     handleBlur = () => {
         /* Get out of edit mode (input) when the input field loses focus (click outside) */
-        this.setState({ editingIndex: null, editingField: null });
+        this.setState({ editingIndex: null });
     };
 
     handleSave = (index) => {
         /* Fuction that dispatches a function that sends an Update request to the API */
         const userToSave = this.state.users[index];
-        console.log("Saving user:", userToSave);
+        this.setState({ editingIndex: null });
+        // userToSave will be undefined if we click save without modifying anything
+        // So only send an UPDATE request to the API if we made a modification
+        if (userToSave) {
+            console.log("OUI Saving user:", userToSave);
+        }
     };
 
     componentDidUpdate(prevProps) {
-        /* Update the state if props change */
+        // Props might not be available when the constructor runs, so this ensures to update the state when they're passed in
         if (prevProps.listUsers !== this.props.listUsers) {
             this.setState({ users: this.props.listUsers });
         }
@@ -59,8 +63,8 @@ class StudentsTable extends Component {
             <tbody>
                 {/* Rows: loop through users */}
                 {this.state.users.map((user, index) => (
-                    <tr key={user.id}>
-                        {/* Columns: loop through each field of the user */}
+                    <tr key={user.id} style={this.state.editingIndex === index ? { backgroundColor: '#49c78540' }: {}}>
+                        {/* Columns: loop through each field of the user
                         {["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
                             <td
                                 key={field}
@@ -79,10 +83,34 @@ class StudentsTable extends Component {
                                     user[field] // If not editing, show the user data as text
                                 )}
                             </td>
-                        ))}
-                        <td className={css(styles.thTd)}>
-                            <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
+                        ))} */}
+                        {this.state.editingIndex === index
+                            ? ["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
+                                <td key={field}>
+                                    <input
+                                        value={user[field]}
+                                        className={css(styles.input)}
+                                        onChange={(e) => this.handleChange(e, index, field)}
+                                    />
+                                </td>
+                            ))
+                            : (
+                                <>
+                                    <td className={css(styles.thTd)}>{user.firstName}</td>
+                                    <td className={css(styles.thTd)}>{user.lastName}</td>
+                                    <td className={css(styles.thTd)}>{user.email}</td>
+                                    <td className={css(styles.thTd)}>{user.cohort}</td>
+                                    <td className={css(styles.thTd)}>{user.studentId}</td>
+                                </>
+                            )
+                        }
+                        <td>
                             <button className={css(styles.coursesButton)} onClick={() => this.handleSave(index)}>Courses</button>
+                            {this.state.editingIndex === index ? (
+                                <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
+                            ) : (
+                                <button className={css(styles.editeButton)} onClick={() => this.handleEdit(index)}>Edit</button>
+                            )}
                         </td>
                     </tr>
                 ))}
@@ -100,12 +128,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: '8px',
         /*tableLayout: 'fixed',*/
+        tableLayout: 'auto',
     },
         
     thTd: {
         padding: '10px',
         border: '1px solid #ddd',
         textAlign: 'left',
+        whiteSpace: 'nowrap', // Prevents line breaks
+        maxWidth: '200px', // Prevents it from expanding too much
+        overflow: 'hidden', // Ensures text doesn't overflow
+        textOverflow: 'ellipsis', // Adds ellipsis if text is too long
     },
     
     th: {
@@ -113,8 +146,28 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        width: '100%',
+        maxWidth: '200px',
         boxSizing: 'border-box',
+        fontSize: 'inherit',
+        fontFamily: 'inherit',
+        background: 'none',
+        outline: 'none',
+        border: 'none',
+        padding: '8px',
+    },
+
+    editeButton: {
+        padding: '6px 12px',
+        backgroundColor: 'grey',
+        border: 'none',
+        color: 'white',
+        borderRadius: '30px',
+        marginRight: '10px',
+        cursor: 'pointer',
+
+        ':hover' : {
+            backgroundColor: '#5d4ebc',
+        },
     },
 
     saveButton: {
@@ -124,6 +177,11 @@ const styles = StyleSheet.create({
         color: 'white',
         borderRadius: '30px',
         marginRight: '10px',
+        cursor: 'pointer',
+
+        ':hover' : {
+            backgroundColor: '#3a9e6a',
+        },
     },
 
     coursesButton: {
@@ -133,6 +191,12 @@ const styles = StyleSheet.create({
         color: 'white',
         borderRadius: '30px',
         marginRight: '10px',
+        marginLeft: '10px',
+        cursor: 'pointer',
+
+        ':hover' : {
+            backgroundColor: '#5d4ebc',
+        },
     },
 });
 
