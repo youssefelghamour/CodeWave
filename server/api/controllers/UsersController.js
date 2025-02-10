@@ -23,6 +23,11 @@ class UsersController {
                 return res.status(400).json({ error: "User with this email already exists" });
             }
 
+            // If the new user is created without courses list, initialize it to an empty list
+            if (!("courses" in newData)) {
+                newData["courses"] = [];
+            }
+
             // Create the new user
             const newUser = await dbClient.usersCollection.insertOne(newData);
             return res.status(201).json(newUser);

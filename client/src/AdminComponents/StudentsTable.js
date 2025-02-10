@@ -9,6 +9,8 @@ class StudentsTable extends Component {
             users: this.props.listUsers || [],
             // Keeps track of which user and field is being edited
             editingIndex: null, // Index of the row (autoincrement)
+            addUser: false, // Flag to show or hide the row that adds a new user
+            newUser: { firstName: "", lastName: "", email: "", cohort: "", studentId: "" },
         };
     }
 
@@ -29,15 +31,26 @@ class StudentsTable extends Component {
         this.setState({ editingIndex: null });
     };
 
-    handleSave = (index) => {
-        /* Fuction that dispatches a function that sends an Update request to the API */
-        const userToSave = this.state.users[index];
-        this.setState({ editingIndex: null });
-        // userToSave will be undefined if we click save without modifying anything
-        // So only send an UPDATE request to the API if we made a modification
-        if (userToSave) {
-            console.log("Saving user:", userToSave);
-            this.props.updateUser(userToSave);
+    handleSave = async (index) => {
+        /* Fuction that dispatches functions that sends requests to the API */
+
+        // We set this condition to determine when we're adding a new user
+        if (index === -1) {
+            await this.props.createUser(this.state.newUser); // Send new user to API
+            // Reset the flag and the temp user in the state
+            this.setState({ addUser: false, newUser: { firstName: "", lastName: "", email: "", cohort: "", studentId: "" } });
+            // Calls fetchUsers in the parent to repopulates the state with the new list of users containing the new user
+            // listUsers passed down as a prop from AdminPage will now include the new user, and thus in users in this local state
+            this.props.reloadUsers();
+        } else {
+            const userToSave = this.state.users[index];
+            this.setState({ editingIndex: null });
+            // userToSave will be undefined if we click save without modifying anything
+            // So only send an UPDATE request to the API if we made a modification
+            if (userToSave) {
+                console.log("Saving user:", userToSave);
+                this.props.updateUser(userToSave);
+            }
         }
     };
 
@@ -46,77 +59,112 @@ class StudentsTable extends Component {
         if (prevProps.listUsers !== this.props.listUsers) {
             this.setState({ users: this.props.listUsers });
         }
-    }
+    };
+
+    addUser = () => {
+        if (this.state.addUser === false) {
+            this.setState({ addUser : true });
+        } else {
+            this.setState({ addUser : false });
+        }
+    };
+
+    handleChangeAdd = (e, field) => {
+        // Updates the fiels of the newUser in the state, so the newUser contains all the new info before seding it to the api
+        this.setState({ newUser: { ...this.state.newUser, [field]: e.target.value } });
+    };
   
     render() {
       return (
-        <table className={css(styles.table)}>
-            <thead className={css(styles.th)}>
-                <tr>
-                    <th className={css(styles.thTd)}>First Name</th>
-                    <th className={css(styles.thTd)}>Last Name</th>
-                    <th className={css(styles.thTd)}>Email</th>
-                    <th className={css(styles.thTd)}>Cohort</th>
-                    <th className={css(styles.thTd)}>Student ID</th>
-                    <th className={css(styles.thTd)}>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {/* Rows: loop through users */}
-                {this.state.users.map((user, index) => (
-                    <tr key={user.id} style={this.state.editingIndex === index ? { backgroundColor: '#49c78540' }: {}}>
-                        {/* Columns: loop through each field of the user
-                        {["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
-                            <td
-                                key={field}
-                                className={css(styles.thTd)}
-                                onClick={() => this.handleEdit(index, field)} // When clicked, set the cell to be editable
-                            >
-                                {this.state.editingIndex === index && this.state.editingField === field ? (
-                                    <input
-                                        className={css(styles.input)}
-                                        value={user[field]}
-                                        onChange={(e) => this.handleChange(e, index, field)}
-                                        onBlur={this.handleBlur} // When input loses focus, stop editing
-                                        autoFocus // Places the cursor in the clicked-on input cell (for typing)
-                                    />
-                                ) : (
-                                    user[field] // If not editing, show the user data as text
-                                )}
-                            </td>
-                        ))} */}
-                        {this.state.editingIndex === index
-                            ? ["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
+        <Fragment>
+            <button onClick={() => this.addUser()}>Register a New Student</button>
+
+            <table className={css(styles.table)}>
+                <thead className={css(styles.th)}>
+                    <tr>
+                        <th className={css(styles.thTd)}>First Name</th>
+                        <th className={css(styles.thTd)}>Last Name</th>
+                        <th className={css(styles.thTd)}>Email</th>
+                        <th className={css(styles.thTd)}>Cohort</th>
+                        <th className={css(styles.thTd)}>Student ID</th>
+                        <th className={css(styles.thTd)}>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.state.addUser && (
+                        <tr style={{ backgroundColor: '#49c78540' }}>
+                            {["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
                                 <td key={field}>
                                     <input
-                                        value={user[field]}
+                                        placeholder={field}
                                         className={css(styles.input)}
-                                        onChange={(e) => this.handleChange(e, index, field)}
+                                        onChange={(e) => this.handleChangeAdd(e, field)}
                                     />
                                 </td>
-                            ))
-                            : (
-                                <>
-                                    <td className={css(styles.thTd)}>{user.firstName}</td>
-                                    <td className={css(styles.thTd)}>{user.lastName}</td>
-                                    <td className={css(styles.thTd)}>{user.email}</td>
-                                    <td className={css(styles.thTd)}>{user.cohort}</td>
-                                    <td className={css(styles.thTd)}>{user.studentId}</td>
-                                </>
-                            )
-                        }
-                        <td>
-                            <button className={css(styles.coursesButton)} onClick={() => this.handleSave(index)}>Courses</button>
-                            {this.state.editingIndex === index ? (
-                                <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
-                            ) : (
-                                <button className={css(styles.editeButton)} onClick={() => this.handleEdit(index)}>Edit</button>
-                            )}
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+                            ))}
+                            <td>
+                                <button className={css(styles.cancelButton)} onClick={() => this.addUser()}>Cancel</button>
+                                <button className={css(styles.saveButton)} onClick={() => this.handleSave(-1)}>Save</button>
+                            </td>
+                        </tr>
+                    )}
+
+                    {/* Rows: loop through users */}
+                    {this.state.users.map((user, index) => (
+                        <tr key={user.id} style={this.state.editingIndex === index ? { backgroundColor: '#49c78540' }: {}}>
+                            {/* Columns: loop through each field of the user
+                            {["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
+                                <td
+                                    key={field}
+                                    className={css(styles.thTd)}
+                                    onClick={() => this.handleEdit(index, field)} // When clicked, set the cell to be editable
+                                >
+                                    {this.state.editingIndex === index && this.state.editingField === field ? (
+                                        <input
+                                            className={css(styles.input)}
+                                            value={user[field]}
+                                            onChange={(e) => this.handleChange(e, index, field)}
+                                            onBlur={this.handleBlur} // When input loses focus, stop editing
+                                            autoFocus // Places the cursor in the clicked-on input cell (for typing)
+                                        />
+                                    ) : (
+                                        user[field] // If not editing, show the user data as text
+                                    )}
+                                </td>
+                            ))} */}
+                            {this.state.editingIndex === index
+                                ? ["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
+                                    <td key={field}>
+                                        <input
+                                            value={user[field]}
+                                            className={css(styles.input)}
+                                            onChange={(e) => this.handleChange(e, index, field)}
+                                        />
+                                    </td>
+                                ))
+                                : (
+                                    <>
+                                        <td className={css(styles.thTd)}>{user.firstName}</td>
+                                        <td className={css(styles.thTd)}>{user.lastName}</td>
+                                        <td className={css(styles.thTd)}>{user.email}</td>
+                                        <td className={css(styles.thTd)}>{user.cohort}</td>
+                                        <td className={css(styles.thTd)}>{user.studentId}</td>
+                                    </>
+                                )
+                            }
+                            <td>
+                                <button className={css(styles.coursesButton)} onClick={() => this.handleSave(index)}>Courses</button>
+                                {this.state.editingIndex === index ? (
+                                    <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
+                                ) : (
+                                    <button className={css(styles.editeButton)} onClick={() => this.handleEdit(index)}>Edit</button>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </Fragment>
       );
     }
 }
@@ -197,6 +245,21 @@ const styles = StyleSheet.create({
 
         ':hover' : {
             backgroundColor: '#5d4ebc',
+        },
+    },
+
+    cancelButton: {
+        padding: '6px 12px',
+        backgroundColor: 'white',
+        border: '1px solid #8080808f',
+        color: 'black',
+        borderRadius: '30px',
+        marginRight: '10px',
+        marginLeft: '10px',
+        cursor: 'pointer',
+
+        ':hover' : {
+            backgroundColor: '#dfdfdf',
         },
     },
 });

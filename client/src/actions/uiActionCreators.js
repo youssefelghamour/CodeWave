@@ -101,3 +101,19 @@ export const updateUser = (updatedUser) => {
         .catch(error => console.error('Error:', error));
     };
 };
+
+
+export const createUser = (newUser) => {
+    return (dispatch) => {
+        return fetch(`http://localhost:5000/users`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newUser),
+        })
+        .then(response => response.json())
+        .then(data => console.log(`New user added: ${JSON.stringify(data)}`))
+        .catch(error => console.error('Error:', error));
+    };
+};

@@ -20,6 +20,7 @@ import { LiaBookSolid } from "react-icons/lia";
 import { PiNewspaper } from "react-icons/pi";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { createUser } from "../actions/uiActionCreators";
 
 
 // HOC to inject navigate into a class component since it only works with function components
@@ -46,8 +47,14 @@ class Admin extends Component {
         this.props.fetchUsers();
     }
 
+    reloadUsers = () => {
+        /* Function passed down to StudentsTable so it can fetch the users again after adding a new user
+            so the table includes the newly added user */
+        this.props.fetchUsers();
+    }
+
     render() {
-        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers, updateUser } = this.props;
+        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers, updateUser, createUser } = this.props;
 
         // To ensure the admin panel isn't displayed before componentDidMount redirects to Home
         if (!this.props.isLoggedIn || this.props.user?.email !== "admin@email.com") {
@@ -170,7 +177,7 @@ class Admin extends Component {
 
                     <section className={css(styles.studentsSection)}>
                         { listUsers ? (
-                            <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser}/>
+                            <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser} createUser={createUser} reloadUsers={this.reloadUsers}/>
                         ) : (<p>no users</p>)}
                     </section>
                 </div>
@@ -505,6 +512,7 @@ const mapDispatchToProps = {
     setNotificationFilter,
     fetchUsers,
     updateUser,
+    createUser,
 };
 
 export default withNavigate(connect(mapStateToProps, mapDispatchToProps)(Admin));
