@@ -77,7 +77,10 @@ class StudentsTable extends Component {
     render() {
       return (
         <Fragment>
-            <button onClick={() => this.addUser()}>Register a New Student</button>
+            <div className={css(styles.h)}>
+                <p className={css(styles.p)}>Students</p>
+                <button className={css(styles.registerButton)} onClick={() => this.addUser()}>Register a New Student</button>
+            </div>
 
             <table className={css(styles.table)}>
                 <thead className={css(styles.th)}>
@@ -171,6 +174,38 @@ class StudentsTable extends Component {
 
 
 const styles = StyleSheet.create({
+    h: {
+        margin: '15px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+    p: {
+        fontSize: '1.2rem',
+        margin: '0',
+        display: 'flex',
+        flexDirection: 'column',
+        fontWeight: 'bold',
+        fontFamily: 'Poppins, sans-serif',
+        '@media (max-width: 900px)': {
+            fontSize: '20px',
+        },
+    },
+    
+    registerButton: {
+        padding: '9px 20px',
+        backgroundColor: '#52919e',
+        border: 'none',
+        color: 'white',
+        borderRadius: '30px',
+        cursor: 'pointer',
+
+        ':hover' : {
+            backgroundColor: '#3a9e6a',
+        },
+    },
+
     table: {
         width: '100%',
         borderCollapse: 'collapse',

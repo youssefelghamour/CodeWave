@@ -191,15 +191,15 @@ const styles = StyleSheet.create({
     body: {
         backgroundColor: '#8080801f',
         height: '100vh',
-        overflow: 'hidden',
+        overflowY: 'auto',
         display: 'flex',
         fontFamily: 'Poppins',
         fontSize: '14px',
     },
 
     sideBar: {
-        width: '15%',
-        position: 'relative',
+        width: '13%',
+        position: 'fixed',
         minHeight: '100vh',
         paddingLeft: '25px',
         paddingRight: '25px',
@@ -267,16 +267,20 @@ const styles = StyleSheet.create({
     main: {
         width: '100%',
         marginRight: '25px',
+        marginLeft: '19%',
+        height: 'max-content',
+        marginBottom: '20px',
     },
 
     header: {
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-between',
     },
 
     logout: {
         display: 'flex',
-        position: 'absolute',
+        position: 'relative',
         right: '25px',
         gap: '10px',
         alignItems: 'center',
@@ -493,8 +497,12 @@ const styles = StyleSheet.create({
         width: '100%',
         justifySelf: 'center',
         fontFamily: 'Poppins',
-        marginTop: '20px',
+        margin: '20px 0',
         boxShadow: 'rgb(196, 195, 195) 1px 1px 10px',
+        boxShadow: 'rgba(196, 195, 195, 0.67) 0px 0px 10px',
+        border: '1.5px solid rgba(149, 149, 149, 0.4)',
+        borderRadius: '8px',
+        backgroundColor: 'white',
     },
 });
 
