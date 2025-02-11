@@ -1,5 +1,6 @@
 import { css, StyleSheet } from "aphrodite";
 import React, { Component, Fragment } from "react";
+import { IoIosSearch } from "react-icons/io";
 
 
 class StudentsTable extends Component {
@@ -44,6 +45,8 @@ class StudentsTable extends Component {
             this.props.reloadUsers();
         } else {
             const userToSave = this.state.users[index];
+            console.log(index);
+            console.log(userToSave);
             this.setState({ editingIndex: null });
             // userToSave will be undefined if we click save without modifying anything
             // So only send an UPDATE request to the API if we made a modification
@@ -73,12 +76,39 @@ class StudentsTable extends Component {
         // Updates the fiels of the newUser in the state, so the newUser contains all the new info before seding it to the api
         this.setState({ newUser: { ...this.state.newUser, [field]: e.target.value } });
     };
+
+    handleDelete = async (index) => {
+        // When we edit a user, the users in the state will turn into a list with handlechange
+        // If we delete a user after editing, we'll need to retrieve it from a list:
+        let user = this.state.users[index];
+        if (user) {
+            console.log(`user from list:`);
+            console.log(user);
+        } else {  // When deleting a user before editing, the state will be an immutable so we need to retrieve it with get
+            user = this.state.users.get(index);
+            console.log(`user from immutable:`);
+            console.log(user);
+        }
+
+        const confirmDelete = window.confirm(`Permanently delete this user: ${user.firstName} ${user.lastName}?`);
+    
+        if (confirmDelete) {
+            await this.props.deleteUser(user);
+            this.props.reloadUsers();
+        } else {
+            console.log("Delete action was canceled");
+        }
+    };
   
     render() {
       return (
         <Fragment>
             <div className={css(styles.h)}>
                 <p className={css(styles.p)}>Students</p>
+                <div className={css(styles.searchBar)}>
+                    <IoIosSearch size={20}/>
+                    <input placeholder={'Search...'} className={css(styles.searchInput)}/>
+                </div>
                 <button className={css(styles.registerButton)} onClick={() => this.addUser()}>Register a New Student</button>
             </div>
 
@@ -155,13 +185,14 @@ class StudentsTable extends Component {
                                     </>
                                 )
                             }
-                            <td>
+                            <td className={css(styles.actionsTd)}>
                                 <button className={css(styles.coursesButton)} onClick={() => this.handleSave(index)}>Courses</button>
                                 {this.state.editingIndex === index ? (
                                     <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
                                 ) : (
                                     <button className={css(styles.editeButton)} onClick={() => this.handleEdit(index)}>Edit</button>
                                 )}
+                                <button className={css(styles.deleteButton)} onClick={() => this.handleDelete(index)}>Delete</button>
                             </td>
                         </tr>
                     ))}
@@ -190,6 +221,31 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins, sans-serif',
         '@media (max-width: 900px)': {
             fontSize: '20px',
+        },
+    },
+
+    searchBar: {
+        display: 'flex',
+        padding: '8px 17px',
+        backgroundColor: '#f2f2f29e',
+        border: '1px solid #c6c5c5',
+        color: '#787878',
+        alignItems: 'center',
+        borderRadius: '30px',
+        paddingLeft: '12px',
+    },
+
+    searchInput: {
+        background: 'none',
+        border: 'none',
+        marginLeft: '7px',
+        color: '#919191',
+
+        ':focus': {
+            outline: 'none',
+            border: 'none',
+            boxShadow: 'none',
+            color: 'black',
         },
     },
     
@@ -296,6 +352,23 @@ const styles = StyleSheet.create({
         ':hover' : {
             backgroundColor: '#dfdfdf',
         },
+    },
+
+    deleteButton: {
+        padding: '6px 12px',
+        backgroundColor: '#ff3665',
+        border: 'none',
+        color: 'white',
+        borderRadius: '30px',
+        cursor: 'pointer',
+
+        ':hover' : {
+            backgroundColor: '#ef2353',
+        },
+    },
+
+    actionsTd: {
+        width: '20%',
     },
 });
 

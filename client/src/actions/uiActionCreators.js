@@ -117,3 +117,19 @@ export const createUser = (newUser) => {
         .catch(error => console.error('Error:', error));
     };
 };
+
+
+export const deleteUser = (user) => {
+    return (dispatch) => {
+        return fetch(`http://localhost:5000/users/${user.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        })
+        .then(response => response.json())
+        .then(data => console.log(data.message))
+        .catch(error => console.error('Error:', error));
+    };
+};

@@ -9,7 +9,7 @@ import NotificationItem from "../Notifications/NotificationItem";
 import { HiMiniUsers } from "react-icons/hi2";
 import { getNews } from "../selectors/newsSelector";
 import { MdLibraryBooks } from "react-icons/md";
-import { fetchUsers, updateUser } from "../actions/uiActionCreators";
+import { deleteUser, fetchUsers, updateUser } from "../actions/uiActionCreators";
 import { getUsers } from "../selectors/uiSelector";
 import StudentsTable from "../AdminComponents/StudentsTable";
 import logo from '../../dist/logo.png';
@@ -54,7 +54,7 @@ class Admin extends Component {
     }
 
     render() {
-        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers, updateUser, createUser } = this.props;
+        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers, updateUser, createUser, deleteUser } = this.props;
 
         // To ensure the admin panel isn't displayed before componentDidMount redirects to Home
         if (!this.props.isLoggedIn || this.props.user?.email !== "admin@email.com") {
@@ -177,7 +177,7 @@ class Admin extends Component {
 
                     <section className={css(styles.studentsSection)}>
                         { listUsers ? (
-                            <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser} createUser={createUser} reloadUsers={this.reloadUsers}/>
+                            <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser} createUser={createUser} reloadUsers={this.reloadUsers} deleteUser={deleteUser}/>
                         ) : (<p>no users</p>)}
                     </section>
                 </div>
@@ -521,6 +521,7 @@ const mapDispatchToProps = {
     fetchUsers,
     updateUser,
     createUser,
+    deleteUser,
 };
 
 export default withNavigate(connect(mapStateToProps, mapDispatchToProps)(Admin));
