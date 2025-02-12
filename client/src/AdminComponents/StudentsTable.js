@@ -12,6 +12,7 @@ class StudentsTable extends Component {
             editingIndex: null, // Index of the row (autoincrement)
             addUser: false, // Flag to show or hide the row that adds a new user
             newUser: { firstName: "", lastName: "", email: "", cohort: "", studentId: "" },
+            filteredUsers: [],
         };
     }
 
@@ -22,7 +23,13 @@ class StudentsTable extends Component {
 
     handleChange = (e, index, field) => {
         /* Function to handle changes made to input fields */
-        const newUsers = [...this.state.users]; // Make a copy of the users array
+        let newUsers = [...this.state.users]; // Make a copy of the users array
+        /*
+        // If we searched for a user, the displayed users will be different, and the index corresponds to the filteredUSers
+        if (this.state.filteredUsers.length > 0) {
+            newUsers = [...this.state.filteredUsers];
+        }
+        */
         newUsers[index][field] = e.target.value; // Update the field of the user with new value
         this.setState({ users: newUsers }); // Update state with the modified list of users
     };
@@ -44,7 +51,13 @@ class StudentsTable extends Component {
             // listUsers passed down as a prop from AdminPage will now include the new user, and thus in users in this local state
             this.props.reloadUsers();
         } else {
-            const userToSave = this.state.users[index];
+            let userToSave = this.state.users[index];
+            /*
+            // If we searched for a user, the displayed users will be different, and the index corresponds to the filteredUSers
+            if (this.state.filteredUsers.length > 0) {
+                userToSave = this.state.filteredUsers[index];
+            }
+            */
             console.log(index);
             console.log(userToSave);
             this.setState({ editingIndex: null });
@@ -81,6 +94,21 @@ class StudentsTable extends Component {
         // When we edit a user, the users in the state will turn into a list with handlechange
         // If we delete a user after editing, we'll need to retrieve it from a list:
         let user = this.state.users[index];
+        /*
+        // If we searched for a user, the displayed users will be different, and the index corresponds to the filteredUSers
+        if (this.state.filteredUsers.length > 0) {
+            user = this.state.filteredUsers[index];
+        } else {
+            // If users is alist (after editing)
+            if (user) {
+                console.log(`user from list:`);
+                console.log(user);
+            } else {  // When deleting a user before editing, the state will be an immutable so we need to retrieve it with get
+                user = this.state.users.get(index);
+                console.log(`user from immutable:`);
+                console.log(user);
+            }
+        }*/
         if (user) {
             console.log(`user from list:`);
             console.log(user);
@@ -99,6 +127,33 @@ class StudentsTable extends Component {
             console.log("Delete action was canceled");
         }
     };
+
+    handleSearch = (e) => {
+        /* Filters the list of users based on the search query from the search bar */
+        // input: onChange={(e) => this.handleSearch(e)}
+        // rows: {(this.state.filteredUsers.length > 0 ? this.state.filteredUsers : this.state.users).map((user, index) => (
+        const { users } = this.state;
+        const query = e.target.value;
+
+        let filteredUsers;
+        if (query === '') {
+            filteredUsers = []; // Reset when search is cleared
+        } else {
+            // When we edit a user, the users in the state will turn into a list because of handlechange
+            if (Array.isArray(users)) {
+                // Filter: If any field includes the query
+                filteredUsers = users.filter(user =>
+                    Object.values(user).some(value => value.toString().includes(query))
+                );
+            } else {
+                filteredUsers = users.toJS().filter(user =>
+                    Object.values(user).some(value => value.toString().includes(query))
+                );
+            }
+        }
+
+        this.setState({ filteredUsers });
+    };
   
     render() {
       return (
@@ -107,7 +162,7 @@ class StudentsTable extends Component {
                 <p className={css(styles.p)}>Students</p>
                 <div className={css(styles.searchBar)}>
                     <IoIosSearch size={20}/>
-                    <input placeholder={'Search...'} className={css(styles.searchInput)}/>
+                    <input placeholder={'Search...'} className={css(styles.searchInput)} onChange={(e) => this.handleSearch(e)}/>
                 </div>
                 <button className={css(styles.registerButton)} onClick={() => this.addUser()}>Register a New Student</button>
             </div>
@@ -143,28 +198,9 @@ class StudentsTable extends Component {
                     )}
 
                     {/* Rows: loop through users */}
-                    {this.state.users.map((user, index) => (
+                    {/* Display filteredUsers when a search result is found, OR ALL users (default, no search) */}
+                    {(this.state.filteredUsers.length > 0 ? this.state.filteredUsers : this.state.users).map((user, index) => (
                         <tr key={user.id} style={this.state.editingIndex === index ? { backgroundColor: '#49c78540' }: {}}>
-                            {/* Columns: loop through each field of the user
-                            {["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
-                                <td
-                                    key={field}
-                                    className={css(styles.thTd)}
-                                    onClick={() => this.handleEdit(index, field)} // When clicked, set the cell to be editable
-                                >
-                                    {this.state.editingIndex === index && this.state.editingField === field ? (
-                                        <input
-                                            className={css(styles.input)}
-                                            value={user[field]}
-                                            onChange={(e) => this.handleChange(e, index, field)}
-                                            onBlur={this.handleBlur} // When input loses focus, stop editing
-                                            autoFocus // Places the cursor in the clicked-on input cell (for typing)
-                                        />
-                                    ) : (
-                                        user[field] // If not editing, show the user data as text
-                                    )}
-                                </td>
-                            ))} */}
                             {this.state.editingIndex === index
                                 ? ["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
                                     <td key={field}>
@@ -186,13 +222,17 @@ class StudentsTable extends Component {
                                 )
                             }
                             <td className={css(styles.actionsTd)}>
-                                <button className={css(styles.coursesButton)} onClick={() => this.handleSave(index)}>Courses</button>
-                                {this.state.editingIndex === index ? (
-                                    <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
-                                ) : (
-                                    <button className={css(styles.editeButton)} onClick={() => this.handleEdit(index)}>Edit</button>
+                                {(this.state.filteredUsers.length === 0) && (
+                                    <>
+                                        <button className={css(styles.coursesButton)} onClick={() => this.handleSave(index)}>Courses</button>
+                                        {this.state.editingIndex === index ? (
+                                            <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
+                                        ) : (
+                                            <button className={css(styles.editeButton)} onClick={() => this.handleEdit(index)}>Edit</button>
+                                        )}
+                                        <button className={css(styles.deleteButton)} onClick={() => this.handleDelete(index)}>Delete</button>
+                                    </>
                                 )}
-                                <button className={css(styles.deleteButton)} onClick={() => this.handleDelete(index)}>Delete</button>
                             </td>
                         </tr>
                     ))}
