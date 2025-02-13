@@ -1,6 +1,7 @@
 import { css, StyleSheet } from "aphrodite";
 import React, { Component, Fragment } from "react";
 import { IoIosSearch } from "react-icons/io";
+import UserCourses from "./UserCourses";
 
 
 class StudentsTable extends Component {
@@ -12,7 +13,8 @@ class StudentsTable extends Component {
             editingIndex: null, // Index of the row (autoincrement)
             addUser: false, // Flag to show or hide the row that adds a new user
             newUser: { firstName: "", lastName: "", email: "", cohort: "", studentId: "" },
-            filteredUsers: [],
+            filteredUsers: [], // Result of search query
+            coursesUserIndex: null, // Index of user to display courses for
         };
     }
 
@@ -154,6 +156,16 @@ class StudentsTable extends Component {
 
         this.setState({ filteredUsers });
     };
+
+    handleCourses = (index) => {
+        if (index === this.state.coursesUserIndex) {
+            // If we click on courses button of an already displayed courses, hide them
+            this.setState({ coursesUserIndex: null });
+        } else {
+            this.setState({ coursesUserIndex: index });
+        }
+        
+    };
   
     render() {
       return (
@@ -200,41 +212,45 @@ class StudentsTable extends Component {
                     {/* Rows: loop through users */}
                     {/* Display filteredUsers when a search result is found, OR ALL users (default, no search) */}
                     {(this.state.filteredUsers.length > 0 ? this.state.filteredUsers : this.state.users).map((user, index) => (
-                        <tr key={user.id} style={this.state.editingIndex === index ? { backgroundColor: '#49c78540' }: {}}>
-                            {this.state.editingIndex === index
-                                ? ["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
-                                    <td key={field}>
-                                        <input
-                                            value={user[field]}
-                                            className={css(styles.input)}
-                                            onChange={(e) => this.handleChange(e, index, field)}
-                                        />
-                                    </td>
-                                ))
-                                : (
-                                    <>
-                                        <td className={css(styles.thTd)}>{user.firstName}</td>
-                                        <td className={css(styles.thTd)}>{user.lastName}</td>
-                                        <td className={css(styles.thTd)}>{user.email}</td>
-                                        <td className={css(styles.thTd)}>{user.cohort}</td>
-                                        <td className={css(styles.thTd)}>{user.studentId}</td>
-                                    </>
-                                )
-                            }
-                            <td className={css(styles.actionsTd)}>
-                                {(this.state.filteredUsers.length === 0) && (
-                                    <>
-                                        <button className={css(styles.coursesButton)} onClick={() => this.handleSave(index)}>Courses</button>
-                                        {this.state.editingIndex === index ? (
-                                            <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
-                                        ) : (
-                                            <button className={css(styles.editeButton)} onClick={() => this.handleEdit(index)}>Edit</button>
-                                        )}
-                                        <button className={css(styles.deleteButton)} onClick={() => this.handleDelete(index)}>Delete</button>
-                                    </>
-                                )}
-                            </td>
-                        </tr>
+                        <Fragment key={user.id}>
+                            <tr key={user.id} style={this.state.editingIndex === index ? { backgroundColor: '#49c78540' }: {}}>
+                                {this.state.editingIndex === index
+                                    ? ["firstName", "lastName", "email", "cohort", "studentId"].map((field) => (
+                                        <td key={field}>
+                                            <input
+                                                value={user[field]}
+                                                className={css(styles.input)}
+                                                onChange={(e) => this.handleChange(e, index, field)}
+                                            />
+                                        </td>
+                                    ))
+                                    : (
+                                        <>
+                                            <td className={css(styles.thTd)}>{user.firstName}</td>
+                                            <td className={css(styles.thTd)}>{user.lastName}</td>
+                                            <td className={css(styles.thTd)}>{user.email}</td>
+                                            <td className={css(styles.thTd)}>{user.cohort}</td>
+                                            <td className={css(styles.thTd)}>{user.studentId}</td>
+                                        </>
+                                    )
+                                }
+                                <td className={css(styles.actionsTd)}>
+                                    {(this.state.filteredUsers.length === 0) && (
+                                        <>
+                                            <button className={css(styles.coursesButton)} onClick={() => this.handleCourses(index)}>Courses</button>
+                                            {this.state.editingIndex === index ? (
+                                                <button className={css(styles.saveButton)} onClick={() => this.handleSave(index)}>Save</button>
+                                            ) : (
+                                                <button className={css(styles.editeButton)} onClick={() => this.handleEdit(index)}>Edit</button>
+                                            )}
+                                            <button className={css(styles.deleteButton)} onClick={() => this.handleDelete(index)}>Delete</button>
+                                        </>
+                                    )}
+                                </td>
+                            </tr>
+
+                            {this.state.coursesUserIndex === index && <UserCourses key={index} user={user} updateUser={this.props.updateUser} reloadUsers={this.props.reloadUsers}/>}
+                        </Fragment>
                     ))}
                 </tbody>
             </table>
