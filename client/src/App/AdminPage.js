@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { StyleSheet, css } from 'aphrodite';
 import { filterTypeSelected, getNotifications, getUnreadNotificationsByType } from "../selectors/notificationSelector";
-import Notifications from "../Notifications/Notifications";
-import { setNotificationFilter } from "../actions/notificationActionCreators";
-import NotificationItem from "../Notifications/NotificationItem";
+import { createNotification, fetchNotifications, setNotificationFilter } from "../actions/notificationActionCreators";
 import { HiMiniUsers } from "react-icons/hi2";
 import { getNews } from "../selectors/newsSelector";
 import { MdLibraryBooks } from "react-icons/md";
@@ -21,6 +19,7 @@ import { PiNewspaper } from "react-icons/pi";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { createUser } from "../actions/uiActionCreators";
+import AdminNotifications from "../AdminComponents/AdminNotifications";
 
 
 // HOC to inject navigate into a class component since it only works with function components
@@ -54,7 +53,7 @@ class Admin extends Component {
     }
 
     render() {
-        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers, updateUser, createUser, deleteUser } = this.props;
+        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers, updateUser, createUser, deleteUser, createNotification, fetchNotifications } = this.props;
 
         // To ensure the admin panel isn't displayed before componentDidMount redirects to Home
         if (!this.props.isLoggedIn || this.props.user?.email !== "admin@email.com") {
@@ -141,37 +140,7 @@ class Admin extends Component {
                         </div>
                         
                         <div className={css(styles.notifications)} id="st">
-                            {this.props.listNotifications && 
-                                <>
-                                    <p className={css(styles.p)}>Notifications</p>
-                                    <div className={css(styles.filterContainer)}>
-                                        <button className={css(this.props.filter === 'DEFAULT' ? styles.filterButtonSelected : styles.filterButton)} onClick={() => this.props.setNotificationFilter('DEFAULT')}>All</button>
-                                        <button className={css(this.props.filter === 'URGENT' ? styles.filterButtonSelected : styles.filterButton)} onClick={() => this.props.setNotificationFilter('URGENT')}>Urgent</button>
-                                    </div>
-                                </>
-                            }
-                            <div className={css(styles.notifContainer)}>
-
-                                <ul className={css(styles.ul)}>
-                                    { this.props.listNotifications ? (
-                                        Object.values(this.props.listNotifications).map((notification) => (
-                                            <NotificationItem
-                                                id={ notification.guid }
-                                                key={ notification.guid }
-                                                type={ notification.type }
-                                                value={ notification.value }
-                                                html={ notification.html }
-                                            />
-                                        ))
-                                    ) : (
-                                        <NotificationItem
-                                            id={ 0 }
-                                            type="default"
-                                            value="No new notification for now"
-                                        />
-                                    )}
-                                </ul>
-                            </div>
+                            <AdminNotifications listNotifications={this.props.listNotifications} filter={this.props.filter} createNotification={createNotification} fetchNotifications={fetchNotifications} setNotificationFilter={setNotificationFilter} />
                         </div>
                     </section>
 
@@ -426,13 +395,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
 
-    notifContainer: {
-        height: '74%',
-        overflowY: 'auto',
-        padding: '0 15px 0 5px',
-        marginTop: '16px',
-    },
-
     p: {
         fontSize: '1.2rem',
         margin: '0',
@@ -443,51 +405,6 @@ const styles = StyleSheet.create({
         '@media (max-width: 900px)': {
             fontSize: '20px',
         },
-    },
-
-    ul: {
-        marginTop: '0',
-        listStyleType: 'none',
-        padding: '0',
-        '@media (max-width: 900px)': {
-            padding: 0,
-        },
-    },
-
-    filterContainer: {
-        marginTop: '10px',
-        fontSize: '14px',
-        fontFamily: 'Poppins, sans-serif',
-        color: '#adadad',
-    },
-
-    filterButton: {
-        width: 'fit-content',
-        textAlign: 'center',
-        verticalAlign: 'middle',
-        backgroundColor: '#d7d7d74d',
-        cursor: 'pointer !important',
-        borderRadius: '8px !important',
-        padding: '5px 10px',
-        marginRight: '5px',
-        border: 'none',
-
-        ':hover': {
-            backgroundColor: '#0000001a',
-        },
-    },
-
-    filterButtonSelected: {
-        width: 'fit-content',
-        textAlign: 'center',
-        verticalAlign: 'middle',
-        backgroundColor: 'black',
-        cursor: 'pointer !important',
-        borderRadius: '8px !important',
-        padding: '5px 10px',
-        marginRight: '5px',
-        border: 'none',
-        color: 'white',
     },
 
 
@@ -522,6 +439,8 @@ const mapDispatchToProps = {
     updateUser,
     createUser,
     deleteUser,
+    createNotification,
+    fetchNotifications,
 };
 
 export default withNavigate(connect(mapStateToProps, mapDispatchToProps)(Admin));
