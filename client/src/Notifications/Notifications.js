@@ -152,12 +152,13 @@ const styles = StyleSheet.create({
         cursor: 'pointer',
         zIndex: '1',
         borderRadius: '50%',
-        boxShadow: '2px 3px 7px #a7a6a6cc',
+        /*boxShadow: '1px 1px 2px #a7a6a6cc',*/
         padding: '10px 11px 4px',
         position: 'fixed',
         //backgroundColor: '#e1003c',
         zIndex: '1',
         backgroundColor: '#bebebe',
+        background: 'linear-gradient(68deg, rgb(82 82 82), rgb(255 255 255))',
 
         ':hover': {
             animationName: [opacityKeyframes, translateKeyframes],
@@ -184,6 +185,7 @@ const styles = StyleSheet.create({
         color: 'white',
         //textShadow: '-1px -1px 0 #e1003c, 1px -1px 0 #e1003c, -1px 1px 0 #e1003c, 1px 1px 0 #e1003c',
         width: '14px',
+        color: '#2f2f2f',
     },
 
     hide: {

@@ -20,6 +20,7 @@ import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { createUser } from "../actions/uiActionCreators";
 import AdminNotifications from "../AdminComponents/AdminNotifications";
+import hero from '../assets/hero-bg1.jpg';
 
 
 // HOC to inject navigate into a class component since it only works with function components
@@ -108,47 +109,50 @@ class Admin extends Component {
                             <button className={css(styles.logoutButton)}>Logout</button>
                         </div>
                     </div>
-        
-                    <section className={css(styles.stats)}>
-                        <div className={css(styles.users_courses)}>
-                            <div className={css(styles.users)} id="st">
-                                <HiMiniUsers size={40}/>
-                                <p>{listUsers.size ? <><b>{listUsers.size - 1}</b> Students</> : 'No Students'}</p>
+
+                    <div className={css(styles.statsContainer)}>
+                        <section className={css(styles.stats)}>
+                            <div className={css(styles.users_courses)}>
+                                <div className={css(styles.users)} id="st">
+                                    <HiMiniUsers size={40}/>
+                                    <p>{listUsers.size ? <><b>{listUsers.size - 1}</b> Students</> : 'No Students'}</p>
+                                </div>
+                                
+                                <div className={css(styles.courses)} id="st">
+                                    <MdLibraryBooks size={40}/>
+                                    <p><b>{numCourses}</b> Courses</p>
+                                </div>
                             </div>
                             
-                            <div className={css(styles.courses)} id="st">
-                                <MdLibraryBooks size={40}/>
-                                <p><b>{numCourses}</b> Courses</p>
-                            </div>
-                        </div>
-                        
-                        <div className={css(styles.news)} id="st">
-                            <p className={css(styles.p)}>News & Updates Articles</p>
-                            <div className={css(styles.newsContainer)}>
-                                { listNews ? (
-                                    listNews.map((news) => (
-                                        <div className={css(styles.newsItem)} key={news.id} onClick={() => this.handleClick(news.id)}>
-                                            <div className={css(styles.infoContainer)}>
-                                                <p className={css(styles.newsType)}>{news.type}</p>
-                                                <p className={css(styles.newsTitle)}>{news.title}</p>
-                                                <p className={css(styles.newsDate)}>{news.date}</p>
+                            <div className={css(styles.news)} id="st">
+                                <p className={css(styles.p)}>News & Updates Articles</p>
+                                <div className={css(styles.newsContainer)}>
+                                    { listNews ? (
+                                        listNews.map((news) => (
+                                            <div className={css(styles.newsItem)} key={news.id} onClick={() => this.handleClick(news.id)}>
+                                                <div className={css(styles.infoContainer)}>
+                                                    <p className={css(styles.newsType)}>{news.type}</p>
+                                                    <p className={css(styles.newsTitle)}>{news.title}</p>
+                                                    <p className={css(styles.newsDate)}>{news.date}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))
-                                ) : ( <p>No news available</p>)}
+                                        ))
+                                    ) : ( <p>No news available</p>)}
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div className={css(styles.notifications)} id="st">
-                            <AdminNotifications listNotifications={this.props.listNotifications} filter={this.props.filter} createNotification={createNotification} fetchNotifications={fetchNotifications} setNotificationFilter={setNotificationFilter} />
-                        </div>
-                    </section>
+                            
+                            <div className={css(styles.notifications)} id="st">
+                                <AdminNotifications listNotifications={this.props.listNotifications} filter={this.props.filter} createNotification={createNotification} fetchNotifications={fetchNotifications} setNotificationFilter={setNotificationFilter} />
+                            </div>
+                        </section>
 
-                    <section className={css(styles.studentsSection)}>
-                        { listUsers ? (
-                            <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser} createUser={createUser} reloadUsers={this.reloadUsers} deleteUser={deleteUser}/>
-                        ) : (<p>no users</p>)}
-                    </section>
+                        <section className={css(styles.studentsSection)}>
+                            { listUsers ? (
+                                <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser} createUser={createUser} reloadUsers={this.reloadUsers} deleteUser={deleteUser}/>
+                            ) : (<p>no users</p>)}
+                        </section>
+                    </div>
+                    
                 </div>
             </div>
         );
@@ -176,8 +180,13 @@ const styles = StyleSheet.create({
         marginRight: '25px',
         background: 'linear-gradient(149deg, #da2c52 37%, #da2550)',
         color: 'white',
-        borderBottomRightRadius: '27px',
-        borderTopRightRadius: '27px',
+        /*borderBottomRightRadius: '27px',*/
+        /*borderTopRightRadius: '27px',*/
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.74),rgba(0, 0, 0, 0.64)), url(${hero})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center center',
+        color: 'white',
     },
 
     logo: {
@@ -190,7 +199,7 @@ const styles = StyleSheet.create({
         height: 'fit-content',
         padding: '12px 8px 12px 0',
         cursor: 'pointer',
-        filter: 'brightness(10)',
+        /*filter: 'brightness(10)',*/
     },
 
     asideTitle: {
@@ -235,8 +244,9 @@ const styles = StyleSheet.create({
 
     main: {
         width: '100%',
-        marginRight: '25px',
-        marginLeft: '19%',
+        /*marginRight: '25px',
+        marginLeft: '19%',*/
+        marginLeft: 'calc(13% + 50px)', // width of aside + its side paddings (25px each)
         height: 'max-content',
         marginBottom: '20px',
     },
@@ -245,6 +255,10 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginBottom: '20px',
+        paddingLeft: '26px',
+        boxShadow: 'rgb(127 127 127 / 67%) 0px 0px 15px',
+        background: 'white',
     },
 
     logout: {
@@ -272,6 +286,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins, sans-serif',
         position: 'relative',
         /*left: '10%',*/
+    },
+
+
+    statsContainer: {
+        marginRight: '25px',
+        marginLeft: '25px',
     },
 
     stats: {
