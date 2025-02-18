@@ -87,6 +87,18 @@ npm start
 
 https://github.com/user-attachments/assets/16b1b974-bde0-4606-bac1-c0587c447953
 
+## Usage
+
+Once CodeWave is set up, you can use the following steps to interact with the platform:
+
+- Sign up as one of theregistered students (example):
+    - **email:** youssefgr@email.com
+    - **password:** password1
+- Sign up as the admin:
+    - **email:** admin@email.com
+    - **password:** admin
+    - Admins can access the dashboard to manage data, create, delete, and update student profiles, courses, and other admin-level operations.
+
 ## Authors
 
 - **Youssef El Ghamour** - [GitHub](https://github.com/youssefelghamour) | [LinkedIn](https://www.linkedin.com/in/youssefelghamour/)
