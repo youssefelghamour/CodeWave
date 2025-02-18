@@ -32,3 +32,51 @@ export const fetchCourses = () => {
             .catch((error) => {});
     }
 };
+
+
+export const updateCourse = (updatedCourse) => {
+    return (dispatch) => {
+        return fetch(`http://localhost:5000/courses/${updatedCourse.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedCourse),
+        })
+        .then(response => response.json())
+        .then(data => console.log(`Updated course: ${JSON.stringify(data)}`))
+        .catch(error => console.error('Error:', error));
+    };
+};
+
+
+export const createCourse = (newCourse) => {
+    return (dispatch) => {
+        return fetch(`http://localhost:5000/courses`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newCourse),
+        })
+        .then(response => response.json())
+        .then(data => console.log(`New course added: ${JSON.stringify(data)}`))
+        .catch(error => console.error('Error:', error));
+    };
+};
+
+
+export const deleteCourse = (course) => {
+    return (dispatch) => {
+        return fetch(`http://localhost:5000/courses/${course.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(course),
+        })
+        .then(response => response.json())
+        .then(data => console.log(data.message))
+        .catch(error => console.error('Error:', error));
+    };
+};

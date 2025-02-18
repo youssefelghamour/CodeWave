@@ -67,6 +67,9 @@ export class Home extends Component {
   componentDidUpdate(prevProps) {
     /* When the user logged in is an admin, this redirects to the admin page when they submit the login form
       Otherwise, we stay on the home page and display the course list to the student
+
+      The global state conatins courses because fetchCourses action was triggered since
+      CourseList mounted before the redirect, even though it wasn't rendered.
       */
     if (
       this.props.isLoggedIn &&

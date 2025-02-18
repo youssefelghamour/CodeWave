@@ -8,6 +8,8 @@ import { rootReducer } from './reducers/rootReducer';
 import { BrowserRouter } from 'react-router-dom';
 
 
+/* add trace in __REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }):
+   to enable action tracing to know which part of code dispatched an action */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 const root = ReactDOM.createRoot(document.getElementById('root'));

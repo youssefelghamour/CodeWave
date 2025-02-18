@@ -21,6 +21,9 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { createUser } from "../actions/uiActionCreators";
 import AdminNotifications from "../AdminComponents/AdminNotifications";
 import hero from '../assets/hero-bg1.jpg';
+import { getCourses } from "../selectors/courseSelector";
+import { createCourse, deleteCourse, fetchCourses, updateCourse } from "../actions/courseActionCreators";
+import CoursesTable from "../AdminComponents/CoursesTable";
 
 
 // HOC to inject navigate into a class component since it only works with function components
@@ -53,8 +56,14 @@ class Admin extends Component {
         this.props.fetchUsers();
     }
 
+    reloadCourses = () => {
+        /* Function passed down to StudentsTable so it can fetch the users again after adding a new user
+            so the table includes the newly added user */
+        this.props.fetchCourses();
+    }
+
     render() {
-        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers, updateUser, createUser, deleteUser, createNotification, fetchNotifications } = this.props;
+        const { isLoggedIn, user, numCourses, listNotifications, filter, setNotificationFilter, listNews, listUsers, updateUser, createUser, deleteUser, createNotification, fetchNotifications, listCourses, updateCourse, createCourse, deleteCourse } = this.props;
 
         // To ensure the admin panel isn't displayed before componentDidMount redirects to Home
         if (!this.props.isLoggedIn || this.props.user?.email !== "admin@email.com") {
@@ -149,6 +158,12 @@ class Admin extends Component {
                         <section className={css(styles.studentsSection)}>
                             { listUsers ? (
                                 <StudentsTable listUsers={listUsers.filter(user => user.role !== 'admin')} updateUser={updateUser} createUser={createUser} reloadUsers={this.reloadUsers} deleteUser={deleteUser}/>
+                            ) : (<p>no users</p>)}
+                        </section>
+
+                        <section className={css(styles.studentsSection)}>
+                            { listCourses ? (
+                                <CoursesTable listCourses={listCourses} listUsers={listUsers.filter(user => user.role !== 'admin')} updateCourse={updateCourse} createCourse={createCourse} reloadCourses={this.reloadCourses} deleteCourse={deleteCourse}/>
                             ) : (<p>no users</p>)}
                         </section>
                     </div>
@@ -290,8 +305,8 @@ const styles = StyleSheet.create({
 
 
     statsContainer: {
-        marginRight: '25px',
-        marginLeft: '25px',
+        marginRight: '60px',
+        marginLeft: '60px',
     },
 
     stats: {
@@ -451,6 +466,7 @@ export const mapStateToProps = (state) => ({
     filter: filterTypeSelected(state),
     listNews: getNews(state),
     listUsers: getUsers(state),
+    listCourses: getCourses(state),
 });
 
 const mapDispatchToProps = {
@@ -461,6 +477,10 @@ const mapDispatchToProps = {
     deleteUser,
     createNotification,
     fetchNotifications,
+    fetchCourses,
+    updateCourse,
+    createCourse,
+    deleteCourse,
 };
 
 export default withNavigate(connect(mapStateToProps, mapDispatchToProps)(Admin));
