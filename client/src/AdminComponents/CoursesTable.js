@@ -1,6 +1,7 @@
 import { css, StyleSheet } from "aphrodite";
 import React, { Component, Fragment } from "react";
 import { IoIosSearch } from "react-icons/io";
+import CourseStudents from "./CourseStudents";
 
 
 class CoursesTable extends Component {
@@ -15,7 +16,7 @@ class CoursesTable extends Component {
             newCourse: { name: "", duration: "" },
             filteredCourses: [], // Result of search query
             usersCourseIndex: null, // Index of course to display users for
-            filteredUsers: [], // Holds the users assigned to the selected course when 'students' button is clicked
+            filteredStudents: [], // Holds the users assigned to the selected course when 'students' button is clicked
         };
     }
 
@@ -136,28 +137,41 @@ class CoursesTable extends Component {
     handleStudents = (index) => {
         if (index === this.state.coursesUserIndex) {
             // If we click on courses button of an already displayed courses, hide them
-            this.setState({ coursesUserIndex: null });
+            this.setState({ coursesUserIndex: null, filteredStudents: [] });
+        } else {
+            this.setState({ coursesUserIndex: index });
+
             let course = this.state.courses[index];
             if (course) {
                 console.log(`course from list:`);
                 console.log(course);
-            } else {  // WBefore editing, the state will be an immutable so we need to retrieve it with get
+            } else {  // Before editing, the state will be an immutable so we need to retrieve it with get
                 course = this.state.courses.get(index);
                 console.log(`course from immutable:`);
                 console.log(course);
             }
-            let courseID = course.id;
-            console.log(courseID);
+            const courseID = course.id;
 
-            let newUsers = [...this.state.users];
-            let filteredUsers = newUsers.filter((user) =>
-                user.courses.some((course) => course.id === courseID)
-            );
-            console.log(filteredUsers);
-        } else {
-            this.setState({ coursesUserIndex: index });
+            const newUsers = [...this.state.users];
+
+            // Users that are assigned to the selected course
+            const filteredStudents = newUsers
+                .map((user) => {
+                    let commonCourse = user.courses.find((crs) => crs.id === courseID);
+
+                    if (!commonCourse) return null;
+
+                    return {
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        start_date: commonCourse.start_date,
+                        end_date: commonCourse.end_date,
+                    };
+                })
+                .filter((user) => user !== null);  
+            
+            this.setState({ filteredStudents: filteredStudents });
         }
-        
     };
   
     render() {
@@ -235,6 +249,8 @@ class CoursesTable extends Component {
                                     )}
                                 </td>
                             </tr>
+
+                            {this.state.coursesUserIndex === index && <CourseStudents key={index} filteredStudents={this.state.filteredStudents} updateUser={this.props.updateUser} reloadUsers={this.props.reloadUsers}/>}
                         </Fragment>
                     ))}
                 </tbody>

@@ -161,7 +161,7 @@ class Admin extends Component {
                             ) : (<p>no users</p>)}
                         </section>
 
-                        <section className={css(styles.studentsSection)}>
+                        <section className={css(styles.coursesSection)}>
                             { listCourses ? (
                                 <CoursesTable listCourses={listCourses} listUsers={listUsers.filter(user => user.role !== 'admin')} updateCourse={updateCourse} createCourse={createCourse} reloadCourses={this.reloadCourses} deleteCourse={deleteCourse}/>
                             ) : (<p>no users</p>)}
@@ -450,6 +450,19 @@ const styles = StyleSheet.create({
         justifySelf: 'center',
         fontFamily: 'Poppins',
         margin: '20px 0',
+        boxShadow: 'rgb(196, 195, 195) 1px 1px 10px',
+        boxShadow: 'rgba(196, 195, 195, 0.67) 0px 0px 10px',
+        border: '1.5px solid rgba(149, 149, 149, 0.4)',
+        borderRadius: '8px',
+        backgroundColor: 'white',
+    },
+
+    coursesSection: {
+        /*width: '80%',*/
+        width: '100%',
+        justifySelf: 'center',
+        fontFamily: 'Poppins',
+        margin: '30px 0',
         boxShadow: 'rgb(196, 195, 195) 1px 1px 10px',
         boxShadow: 'rgba(196, 195, 195, 0.67) 0px 0px 10px',
         border: '1.5px solid rgba(149, 149, 149, 0.4)',
