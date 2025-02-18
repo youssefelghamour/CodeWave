@@ -15,7 +15,7 @@
       "guid": "2d8e40be-1c78-4de0-afc9-fcc147afd4d2",
       "isRead": true,
       "type": "urgent",
-      "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+      "value": "Course enrollment for the next semester closes in 24 hours. Complete your registration now."
     }
   },
   {
@@ -34,7 +34,7 @@
       "guid": "cec84b7a-7be4-4af0-b833-f1485433f66e",
       "isRead": false,
       "type": "urgent",
-      "value": "ut labore et dolore magna aliqua. Dignissim convallis aenean et tortor at risus viverra adipiscing. Ac tortor dignissim convallis aenean et. "
+      "value": "Final exams begin in 2 days. Make sure to check your schedule!"
     }
   },
   {
@@ -53,7 +53,7 @@
       "guid": "280913fe-38dd-4abd-8ab6-acdb4105f922",
       "isRead": false,
       "type": "urgent",
-      "value": "Non diam phasellus vestibulum lorem sed risus ultricies. Tellus mauris a diam maecenas sed"
+      "value": "Important: The campus will be closed for a maintenance day tomorrow. Please plan accordingly."
     }
   },
   {
@@ -72,7 +72,7 @@
       "guid": "89906f88-a02d-41ee-b214-daa0c54633e3",
       "isRead": true,
       "type": "urgent",
-      "value": "Odio pellentesque diam volutpat commodo sed egestas egestas"
+      "value": "Reminder: Grades for this semester will be finalized in 3 days. Check your progress!"
     }
   },
   {
@@ -91,7 +91,7 @@
       "guid": "f8d66cca-63ec-4f19-a422-a3e1c8f05a36",
       "isRead": false,
       "type": "urgent",
-      "value": "In hendrerit gravida rutrum quisque non tellus orci. Gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim. Lorem mollis aliquam ut porttitor"
+      "value": "All students must update their emergency contact details by the end of the week"
     }
   },
   {
@@ -110,7 +110,7 @@
       "guid": "de55f849-8fca-4ac7-afbb-41751f09d0c6",
       "isRead": false,
       "type": "default",
-      "value": "Cursus metus aliquam eleifend mi in nulla posuere. "
+      "value": "Join us for the Spring Festival this Friday at 3 PM on the main campus!"
     }
   },
   {
@@ -129,7 +129,7 @@
       "guid": "8094c267-ab84-47e1-8801-58ddd23f3b2a",
       "isRead": false,
       "type": "default",
-      "value": "Quam viverra orci sagittis eu volutpat odio facilisis mauris sit"
+      "value": "Library will be closed this weekend for maintenance. Plan ahead."
     }
   },
   {
@@ -148,7 +148,7 @@
       "guid": "3068c575-d619-40af-bf12-dece1ee18dd3",
       "isRead": true,
       "type": "default",
-      "value": "Est ante in nibh mauris cursus mattis molestie a iaculis. Eget lorem dolor sed viverra ipsum nunc aliquet bibendum enim"
+      "value": "New courses for the upcoming semester are now open for enrollment. Check the catalog!"
     }
   },
   {
@@ -167,7 +167,7 @@
       "guid": "efb6c485-00f7-4fdf-97cc-5e12d14d6c41",
       "isRead": false,
       "type": "default",
-      "value": "Cursus risus at ultrices mi."
+      "value": "Notice: Study rooms in the library are now available for online booking."
     }
   },
   {
@@ -186,7 +186,7 @@
       "guid": "1d3918d0-67e6-44a4-9031-72d7750234de",
       "isRead": true,
       "type": "default",
-      "value": "Velit laoreet id donec ultrices tincidunt arcu non. Aliquet eget sit amet tellus cras adipiscing"
+      "value": "Reminder: You can now access the latest e-books for your courses on the library portal."
     }
   },
   {
@@ -205,7 +205,7 @@
       "guid": "98fe7af4-8300-461f-a376-c147b2987616",
       "isRead": false,
       "type": "default",
-      "value": "Ac placerat vestibulum lectus mauris ultrices eros in cursus. Amet nisl suscipit adipiscing bibendum est ultricies integer. Lorem donec massa sapien faucibus et molestie ac"
+      "value": "Update: Faculty positions for the upcoming semester have been posted. Apply through the portal."
     }
   },
   {
@@ -224,7 +224,7 @@
       "guid": "cd1a09cf-ad6e-4478-9662-18a292807e2e",
       "isRead": false,
       "type": "urgent",
-      "value": "Nulla malesuada pellentesque elit eget gravida cum sociis"
+      "value": "Immediate action required for unpaid tuition fees. Please settle them within 48 hours."
     }
   },
   {
@@ -243,7 +243,7 @@
       "guid": "0f446b01-37c3-4884-9dc6-316f23b7711b",
       "isRead": false,
       "type": "urgent",
-      "value": "Elit eget gravida cum sociis natoque penatibus et. Congue mauris rhoncus aenean vel"
+      "value": "Urgent: Immediate action required for incomplete attendance records. Please verify your attendance."
     }
   },
   {
@@ -262,7 +262,7 @@
       "guid": "4cc5bc3a-98fe-4392-b97d-6a41da1d944b",
       "isRead": false,
       "type": "default",
-      "value": "Leo vel fringilla est ullamcorper. Volutpat consequat mauris nunc congue"
+      "value": "Reminder: The student council is hosting a fundraiser on Friday. Join us for a good cause!"
     }
   }
 ]

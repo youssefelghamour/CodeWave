@@ -326,5 +326,101 @@
                 "isSelected": false
             }
         ]
-    }    
+    },
+    {
+        "id": 3,
+        "email": "maria@email.com",
+        "password": "password3",
+        "firstName": "Maria",
+        "lastName": "Fernandez",
+        "studentId": "112 032",
+        "cohort": "21",
+        "role": "student",
+        "courses": [
+            {
+                "id": "1",
+                "name": "ES6",
+                "credit": 60,
+                "start_date": "2024-09-01",
+                "end_date": "2024-12-01",
+                "duration": "3 months",
+                "status": "Completed",
+                "isSelected": false
+            },
+            {
+                "id": "2",
+                "name": "Webpack",
+                "credit": 20,
+                "start_date": "2024-10-01",
+                "end_date": "2024-11-01",
+                "duration": "1 month",
+                "status": "In Progress",
+                "isSelected": false
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "email": "liu@email.com",
+        "password": "password4",
+        "firstName": "Liu",
+        "lastName": "Wei",
+        "studentId": "213 450",
+        "cohort": "19",
+        "role": "student",
+        "courses": [
+            {
+                "id": "3",
+                "name": "React",
+                "credit": 40,
+                "start_date": "2024-08-15",
+                "end_date": "2024-12-15",
+                "duration": "4 months",
+                "status": "Completed",
+                "isSelected": false
+            },
+            {
+                "id": "4",
+                "name": "Node.js",
+                "credit": 50,
+                "start_date": "2024-09-15",
+                "end_date": "2024-12-01",
+                "duration": "2.5 months",
+                "status": "Completed",
+                "isSelected": false
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "email": "amal@email.com",
+        "password": "password5",
+        "firstName": "Amal",
+        "lastName": "Al-Farsi",
+        "studentId": "192 030",
+        "cohort": "20",
+        "role": "student",
+        "courses": [
+            {
+                "id": "5",
+                "name": "CSS Grid & Flexbox",
+                "credit": 30,
+                "start_date": "2024-07-01",
+                "end_date": "2024-09-01",
+                "duration": "2 months",
+                "status": "Completed",
+                "isSelected": false
+            },
+            {
+                "id": "6",
+                "name": "TypeScript",
+                "credit": 40,
+                "start_date": "2024-10-01",
+                "end_date": "2024-12-15",
+                "duration": "2.5 months",
+                "status": "In Progress",
+                "isSelected": false
+            }
+        ]
+    }  
 ]

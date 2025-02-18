@@ -24,6 +24,7 @@ import hero from '../assets/hero-bg1.jpg';
 import { getCourses } from "../selectors/courseSelector";
 import { createCourse, deleteCourse, fetchCourses, updateCourse } from "../actions/courseActionCreators";
 import CoursesTable from "../AdminComponents/CoursesTable";
+import { GoGear } from "react-icons/go";
 
 
 // HOC to inject navigate into a class component since it only works with function components
@@ -101,11 +102,15 @@ class Admin extends Component {
                             <LiaBookSolid />
                             <p className={css(styles.navItems)}>Courses</p>
                         </div>
+                        <div className={css(styles.navItemContainer)}>
+                            <GoGear />
+                            <a href="http://localhost:5000" className={css(styles.navItems)}>API</a>
+                        </div>
                     </nav>
 
                     <div className={css(styles.asideFooter)}>
                         <FaArrowLeft />
-                        <p style={{margin: '0 0 0 13px',}}>Return Home</p>
+                        <a href="http://localhost:8080" style={{margin: '0 0 0 13px', textDecoration: 'none', color: 'white',}}>Return Home</a>
                     </div>
                 </aside>
 
@@ -236,6 +241,7 @@ const styles = StyleSheet.create({
         cursor: 'pointer',
         margin: '5px',
         marginLeft: '14px',
+        textDecoration: 'none',
 
         ':hover': {
             color: 'lightgrey',
@@ -305,8 +311,8 @@ const styles = StyleSheet.create({
 
 
     statsContainer: {
-        marginRight: '60px',
-        marginLeft: '60px',
+        marginRight: '50px',
+        marginLeft: '50px',
     },
 
     stats: {
